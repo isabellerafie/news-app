@@ -2,11 +2,10 @@ html,
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 .header {
-  background-color: #00112f; /* Blue color */
+  background-color: #00112f;
   color: #ffffff;
   padding: 20px 5px;
   position: fixed;
@@ -38,7 +37,6 @@ body {
   background-color: #00112f;
   color: #ffffff;
   width: 50%;
-  height: 20px;
   position: relative;
   font-size: 20px;
 }
@@ -50,7 +48,6 @@ body {
   height: 2px;
   background: #ffffff;
   position: absolute;
-  bottom: 10;
   left: 0;
   transition: width 0.3s;
 }
@@ -139,4 +136,76 @@ body {
 
 .sidebar.visible {
   display: block;
+}
+
+.news-slider-container {
+  margin-top: 80px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+}
+
+.news-slider {
+  overflow-x: scroll;
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  width: 100%;
+  white-space: nowrap;
+  scroll-snap-type: x mandatory;
+  display: flex;
+  align-items: center;
+  height: 500px;
+}
+
+.news-slide {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0;
+}
+
+.news-slide img {
+  width: 1200px;
+  height: 500px;
+  object-fit: cover;
+}
+
+.news-details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.news-date-container {
+  display: flex;
+  align-items: center;
+}
+
+.news-title {
+  background-color: #ffffff;
+  width: fit-content;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.news-slogan {
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 3rem;
+  margin-bottom: 3px;
+}
+
+.news-slider::-webkit-scrollbar {
+  width: 2px;
+  background-color: #acacac;
+}
+
+.news-slider::-webkit-scrollbar-thumb {
+  background-color: #00112f;
 }
