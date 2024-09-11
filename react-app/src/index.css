@@ -1,0 +1,58 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  background-color: #00112f; /* Blue color */
+  color: #ffffff;
+  padding: 20px 5px;
+  position: fixed; /* Keep the header at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15%;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  align-items: center;
+}
+
+.header__logo img {
+  height: 40px;
+}
+
+.fas {
+  cursor: pointer;
+}
+
+.button-container button {
+  border: none;
+  background-color: #00112f;
+  color: #ffffff;
+  width: 50%;
+  height: 20px;
+  position: relative;
+  font-size: 20px;
+}
+
+.button-container button::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  position: absolute;
+  bottom: 10;
+  left: 0;
+  transition: width 0.3s; /* Smooth transition */
+}
+
+.button-container button:hover::after {
+  width: 100%;
+}
