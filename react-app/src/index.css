@@ -9,7 +9,7 @@ body {
   background-color: #00112f; /* Blue color */
   color: #ffffff;
   padding: 20px 5px;
-  position: fixed; /* Keep the header at the top */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -52,26 +52,24 @@ body {
   position: absolute;
   bottom: 10;
   left: 0;
-  transition: width 0.3s; /* Smooth transition */
+  transition: width 0.3s;
 }
 
 .button-container button:hover::after {
   width: 100%;
 }
 
-/* Overlay that covers the background */
 .overlay {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  z-index: 999; /* Just below the search container */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 }
 
-/* Show the overlay when search is visible */
 .overlay.visible {
   display: block;
 }
@@ -85,7 +83,7 @@ body {
   right: 1px;
   padding: 10px;
   border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
   z-index: 1001;
 }
 
@@ -109,6 +107,36 @@ body {
 }
 
 .header.blur {
-  backdrop-filter: blur(5px); /* Adjust the blur intensity as needed */
-  -webkit-backdrop-filter: blur(5px); /* For Safari */
+  filter: blur(2px);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 100%;
+  background-color: #00112f;
+  padding: 20px;
+  color: #00112f;
+  margin-top: 60px;
+  z-index: 10000;
+}
+
+.sidebar a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.sidebar li {
+  padding: 5px;
+}
+
+.sidebar a:hover {
+  background-color: #90addf8e;
+}
+
+.sidebar.visible {
+  display: block;
 }
