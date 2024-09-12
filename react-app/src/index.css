@@ -12,8 +12,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 15%;
-  z-index: 1000;
+  height: fit-content;
   transition: backdrop-filter 0.3s ease;
 }
 
@@ -113,6 +112,7 @@ body {
   right: 0;
   width: 150px;
   height: 100%;
+  overflow-y: scroll; /* Enable vertical scrollbar */
   background-color: #00112f;
   padding: 20px;
   color: #00112f;
@@ -147,13 +147,13 @@ body {
 
 .news-slider {
   overflow-x: scroll;
-  overflow-y: hidden; /* Hide vertical scrollbar */
-  width: 100%;
+  overflow-y: hidden;
+  width: 100vw;
   white-space: nowrap;
   scroll-snap-type: x mandatory;
   display: flex;
   align-items: center;
-  height: 500px;
+  height: 300px;
 }
 
 .news-slide {
@@ -164,8 +164,8 @@ body {
 }
 
 .news-slide img {
-  width: 1200px;
-  height: 500px;
+  width: 390px;
+  height: 300px;
   object-fit: cover;
 }
 
@@ -175,7 +175,6 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -184,21 +183,22 @@ body {
 .news-date-container {
   display: flex;
   align-items: center;
+  padding-left: 10px;
 }
 
 .news-title {
   background-color: #ffffff;
   width: fit-content;
   position: absolute;
-  top: 20px;
-  right: 20px;
+  right: 15px;
 }
 
 .news-slogan {
   font-weight: bold;
   color: #ffffff;
-  font-size: 3rem;
+  font-size: 1rem;
   margin-bottom: 3px;
+  padding: 20px;
 }
 
 .news-slider::-webkit-scrollbar {
