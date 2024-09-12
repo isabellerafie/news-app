@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Header() {
+function Header({ setActivePage }) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const toggleSearch = () => {
@@ -62,8 +62,12 @@ function Header() {
         </div>
         <br />
         <div className="button-container">
-          <button className="home">الرئيسية</button>
-          <button className="latest">آخر الأخبار</button>
+          <button className="home" onClick={() => setActivePage("home")}>
+            الرئيسية
+          </button>
+          <button className="latest" onClick={() => setActivePage("latest")}>
+            آخر الأخبار
+          </button>
         </div>
       </header>
 
