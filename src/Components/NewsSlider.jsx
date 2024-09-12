@@ -6,7 +6,7 @@ function NewsSlider() {
       index: 1,
       date: "2023-03-25",
       slogan: "ليف إلى قادة لبنان: لم يتبق المزيد من الوقت",
-      title: "اخبار محلية",
+      category: "اخبار محلية",
       image: "/src/assets/20b3844209bd622c8c99eaaab6d0c81a-1.jpeg",
     },
     {
@@ -14,14 +14,14 @@ function NewsSlider() {
       date: "2024-09-08",
       slogan:
         "استطلاع: هاريس وترامب متعادلان تقريباً قبل نهاية الحملات الانتخابيّة",
-      title: "دوليات",
+      category: "دوليات",
       image: "/src/assets/GettyImages-2170588081-1024x683.jpg",
     },
     {
       index: 3,
       date: "2024-09-10",
       slogan: "انخفاض كبير في أسعار المحروقات",
-      title: "اقتصاد",
+      category: "اقتصاد",
       image:
         "/src/assets/Capture_379607_819783_298074_741312_650937_110885_873086_230410_749165.jpg",
     },
@@ -29,7 +29,7 @@ function NewsSlider() {
       index: 4,
       date: "2024-09-10",
       slogan: "الصحة العالمية: ارتفاع حاد عام 2023 بحالات الكوليرا ووفياتها",
-      title: "صحة",
+      category: "صحة",
       image: "/src/assets/IMG_0708.jpeg",
     },
   ];
@@ -38,13 +38,13 @@ function NewsSlider() {
       <div className="news-slider">
         {mockData.map((newsItem, index) => (
           <div className="news-slide" key={index}>
-            <img src={newsItem.image} alt={newsItem.title} />
+            <img src={newsItem.image} alt={newsItem.category} />
             <div className="news-details">
               <div className="news-date-container">
                 <span className="date-icon">🕘</span>
                 <p className="news-date">{newsItem.date}</p>
               </div>
-              <h2 className="news-title">{newsItem.title}</h2>
+              <h2 className="news-category">{newsItem.category}</h2>
               <p className="news-slogan">{newsItem.slogan}</p>
             </div>
           </div>

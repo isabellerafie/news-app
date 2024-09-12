@@ -18,20 +18,20 @@ function Header() {
   };
 
   const mockData = [
-    { title: "الصفحة الرئيسية", url: "/" },
-    { title: "أبرز الأحداث", url: "/highlights" },
-    { title: "اخبار محلية", url: "/local" },
-    { title: "اقتصاد", url: "/economy" },
-    { title: "مركزية شباب", url: "/youth" },
-    { title: "متفرقات", url: "/various" },
-    { title: "تحليل سياسي", url: "/political" },
-    { title: "صحة", url: "/health" },
-    { title: "الوضع العربي", url: "/arab" },
-    { title: "دوليات", url: "/international" },
-    { title: "عدل وأمن", url: "/justice" },
-    { title: "مقالات", url: "/articles" },
-    { title: "الصور", url: "/pictures" },
-    { title: "الفيديوهات", url: "/videos" },
+    { category: "الصفحة الرئيسية", url: "/" },
+    { category: "أبرز الأحداث", url: "/highlights" },
+    { category: "اخبار محلية", url: "/local" },
+    { category: "اقتصاد", url: "/economy" },
+    { category: "مركزية شباب", url: "/youth" },
+    { category: "متفرقات", url: "/various" },
+    { category: "تحليل سياسي", url: "/political" },
+    { category: "صحة", url: "/health" },
+    { category: "الوضع العربي", url: "/arab" },
+    { category: "دوليات", url: "/international" },
+    { category: "عدل وأمن", url: "/justice" },
+    { category: "مقالات", url: "/articles" },
+    { category: "الصور", url: "/pictures" },
+    { category: "الفيديوهات", url: "/videos" },
   ];
 
   return (
@@ -90,8 +90,8 @@ function Header() {
         <aside className="sidebar">
           <ul>
             {mockData.map((item) => (
-              <li key={item.title}>
-                <a href={item.url}>{item.title}</a>
+              <li key={item.category}>
+                <a href={item.url}>{item.category}</a>
               </li>
             ))}
           </ul>
