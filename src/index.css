@@ -2,13 +2,21 @@ html,
 body {
   margin: 0;
   padding: 0;
+  font-family: "JFFlat", sans-serif;
+}
+
+@font-face {
+  font-family: "JFFlat";
+  src: url("./assets/fonts/JFFlat-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 .header {
   background-color: #00112f;
   color: #ffffff;
   padding: 20px 5px;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -192,6 +200,7 @@ body {
   width: fit-content;
   position: absolute;
   right: 15px;
+  font-size: 20px;
 }
 
 .news-slogan {
@@ -220,24 +229,22 @@ body {
   color: #ffffff;
   background-color: #00112f;
   margin-bottom: 5px;
-  text-align: right;
+  text-align: end;
   width: 100%;
   margin-top: 0;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
+.category {
+  margin-bottom: 30px;
+}
+
 .name {
-  width: fit-content;
-  font-size: 18px;
   color: #ffffff;
   background-color: #00112f;
-  margin-bottom: 5px;
-  margin-left: 5px;
-  text-align: right;
-  margin-top: 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 3px 5px;
+  font-size: 11px;
 }
 .news-items {
   display: flex;
@@ -259,15 +266,16 @@ body {
   margin-top: 5px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .news-date {
-  font-size: 15px;
+  font-size: 14px;
   color: #2e2c2c;
 }
 
 .news-title {
-  font-size: 14px;
+  font-size: 13px;
   color: #333;
   font-weight: bold;
   margin-top: 5px;
