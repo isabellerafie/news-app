@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-function Header({ setActivePage }) {
+function Header({ setActivePage, setActiveCategory }) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
@@ -11,10 +12,14 @@ function Header({ setActivePage }) {
     setIsSearchVisible(false);
   };
 
-  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
+  };
+
+  const handleCategoryClick = (category) => {
+    setActivePage("category");
+    setActiveCategory(category);
+    setIsSidebarVisible(false); // Close the sidebar when a category is clicked
   };
 
   const mockData = [
@@ -95,7 +100,9 @@ function Header({ setActivePage }) {
           <ul>
             {mockData.map((item) => (
               <li key={item.category}>
-                <a href={item.url}>{item.category}</a>
+                <a href="#" onClick={() => handleCategoryClick(item.category)}>
+                  {item.category}
+                </a>
               </li>
             ))}
           </ul>
