@@ -1,8 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getCategories } from "../api";
 
-function Header({ setActivePage, setActiveCategory }) {
+function Header({ setActivePage, setActiveCategory, onSearch }) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categories, setCategories] = useState([]); // State to store categories
+
+  useEffect(() => {
+    // Fetch categories from API
+    getCategories()
+      .then((response) => {
+        // Log the response to check its structure
+        console.log("API response:", response);
+        if (response.data && Array.isArray(response.data.data)) {
+          setCategories(response.data.data); // Update state with the categories array
+        } else {
+          console.error("Unexpected response data:", response);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+      });
+  }, []);
 
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
@@ -10,6 +30,7 @@ function Header({ setActivePage, setActiveCategory }) {
 
   const clearSearch = () => {
     setIsSearchVisible(false);
+    setSearchQuery("");
   };
 
   const toggleSidebar = () => {
@@ -22,22 +43,48 @@ function Header({ setActivePage, setActiveCategory }) {
     setIsSidebarVisible(false); // Close the sidebar when a category is clicked
   };
 
-  const mockData = [
-    { category: "الصفحة الرئيسية", url: "/" },
-    { category: "أبرز الأحداث", url: "/highlights" },
-    { category: "اخبار محلية", url: "/local" },
-    { category: "اقتصاد", url: "/economy" },
-    { category: "مركزية شباب", url: "/youth" },
-    { category: "متفرقات", url: "/various" },
-    { category: "تحليل سياسي", url: "/political" },
-    { category: "صحة", url: "/health" },
-    { category: "الوضع العربي", url: "/arab" },
-    { category: "دوليات", url: "/international" },
-    { category: "عدل وأمن", url: "/justice" },
-    { category: "مقالات", url: "/articles" },
-    { category: "الصور", url: "/pictures" },
-    { category: "الفيديوهات", url: "/videos" },
-  ];
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value); // Update the search query as the user types
+    if (onSearch) {
+      onSearch(event.target.value); // Optionally pass the search query to a parent component or perform filtering
+    }
+  };
+
+  // Detect 'Enter' key press
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      if (onSearch) {
+        onSearch(searchQuery); // Pass the search query to display the results
+      }
+      clearSearch(); // Clear the search after the search is submitted
+    }
+  };
+
+  // const mockData = [
+  //   { category: "الصفحة الرئيسية", url: "/" },
+  //   { category: "أبرز الأحداث", url: "/highlights" },
+  //   { category: "اخبار محلية", url: "/local" },
+  //   { category: "اقتصاد", url: "/economy" },
+  //   { category: "مركزية شباب", url: "/youth" },
+  //   { category: "متفرقات", url: "/various" },
+  //   { category: "تحليل سياسي", url: "/political" },
+  //   { category: "صحة", url: "/health" },
+  //   { category: "الوضع العربي", url: "/arab" },
+  //   { category: "دوليات", url: "/international" },
+  //   { category: "عدل وأمن", url: "/justice" },
+  //   { category: "مقالات", url: "/articles" },
+  //   { category: "الصور", url: "/pictures" },
+  //   { category: "الفيديوهات", url: "/videos" },
+  // ];
+
+  // Filtering categories based on search query
+  const filteredCategories = Array.isArray(categories)
+    ? categories.filter(
+        (item) =>
+          item.title &&
+          item.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
 
   return (
     <>
@@ -91,6 +138,9 @@ function Header({ setActivePage, setActiveCategory }) {
             type="text"
             placeholder="...اكتب شيئا"
             className="search-input"
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+            onKeyPress={handleKeyPress}
           />
         </div>
       )}
@@ -98,13 +148,17 @@ function Header({ setActivePage, setActiveCategory }) {
       {isSidebarVisible && (
         <aside className="sidebar">
           <ul>
-            {mockData.map((item) => (
-              <li key={item.category}>
-                <a href="#" onClick={() => handleCategoryClick(item.category)}>
-                  {item.category}
-                </a>
-              </li>
-            ))}
+            {filteredCategories.length > 0 ? (
+              filteredCategories.map((item) => (
+                <li key={item.title}>
+                  <a href="#" onClick={() => handleCategoryClick(item.title)}>
+                    {item.title}
+                  </a>
+                </li>
+              ))
+            ) : (
+              <li>No categories found</li>
+            )}
           </ul>
           {/* Close Sidebar Icon */}
           <i className="fas fa-times close-sidebar" onClick={toggleSidebar}></i>

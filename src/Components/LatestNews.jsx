@@ -1,5 +1,5 @@
 import React from "react";
-
+// import getLatestNews from "../api";
 function LatestNews() {
   const mockData = [
     {
