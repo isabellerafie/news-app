@@ -363,7 +363,7 @@ body {
 .main-news-title {
   text-align: center;
   font-size: 0.8em;
-  margin-top: -30px;
+  margin-top: -50px;
   color: #ffffff;
 }
 
@@ -409,4 +409,47 @@ body {
 
 .no-news {
   margin-top: 50px;
+}
+
+/* Container for the search results */
+.search-results-container {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 80px;
+}
+
+.search-result-item {
+  padding: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px #00112f;
+}
+
+.search-result-item h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.search-result-item p {
+  font-size: 14px;
+  color: #acacac;
+  margin-top: 8px;
+}
+
+/* Last item without a bottom border */
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
 }

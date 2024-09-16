@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { getCategories } from "../api";
+import { getCategories, searchArticles } from "../api";
 
 function Header({ setActivePage, setActiveCategory, onSearch }) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [categories, setCategories] = useState([]); // State to store categories
+  const [searchResults, setSearchResults] = useState([]); // State to store search results
 
   useEffect(() => {
     // Fetch categories from API
     getCategories()
       .then((response) => {
-        // Log the response to check its structure
         console.log("API response:", response);
         if (response.data && Array.isArray(response.data.data)) {
           setCategories(response.data.data); // Update state with the categories array
@@ -45,37 +45,27 @@ function Header({ setActivePage, setActiveCategory, onSearch }) {
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value); // Update the search query as the user types
-    if (onSearch) {
-      onSearch(event.target.value); // Optionally pass the search query to a parent component or perform filtering
-    }
   };
 
   // Detect 'Enter' key press
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      if (onSearch) {
-        onSearch(searchQuery); // Pass the search query to display the results
-      }
+      // Call the searchArticles API with the search query and page number (set to 1 initially)
+      searchArticles(searchQuery, 1)
+        .then((response) => {
+          console.log("Search results:", response.data);
+          setSearchResults(response.data.data); // Store the search results
+          if (onSearch) {
+            onSearch(response.data.data); // Pass the results to parent if needed
+          }
+        })
+        .catch((error) => {
+          console.error("Error searching articles:", error);
+        });
+
       clearSearch(); // Clear the search after the search is submitted
     }
   };
-
-  // const mockData = [
-  //   { category: "الصفحة الرئيسية", url: "/" },
-  //   { category: "أبرز الأحداث", url: "/highlights" },
-  //   { category: "اخبار محلية", url: "/local" },
-  //   { category: "اقتصاد", url: "/economy" },
-  //   { category: "مركزية شباب", url: "/youth" },
-  //   { category: "متفرقات", url: "/various" },
-  //   { category: "تحليل سياسي", url: "/political" },
-  //   { category: "صحة", url: "/health" },
-  //   { category: "الوضع العربي", url: "/arab" },
-  //   { category: "دوليات", url: "/international" },
-  //   { category: "عدل وأمن", url: "/justice" },
-  //   { category: "مقالات", url: "/articles" },
-  //   { category: "الصور", url: "/pictures" },
-  //   { category: "الفيديوهات", url: "/videos" },
-  // ];
 
   // Filtering categories based on search query
   const filteredCategories = Array.isArray(categories)
@@ -163,6 +153,23 @@ function Header({ setActivePage, setActiveCategory, onSearch }) {
           {/* Close Sidebar Icon */}
           <i className="fas fa-times close-sidebar" onClick={toggleSidebar}></i>
         </aside>
+      )}
+
+      {/* Display search results */}
+      {searchResults.length > 0 && (
+        <div className="search-results-container">
+          {searchResults.map((article) => (
+            <div key={article.id} className="search-result-item">
+              <h3>{article.title}</h3>
+              <p>{article.date}</p>
+              <img
+                src={article.image || "/src/assets/images.png"}
+                alt={article.title}
+                onError={(e) => (e.target.src = "/src/assets/images.png")}
+              ></img>
+            </div>
+          ))}
+        </div>
       )}
     </>
   );
