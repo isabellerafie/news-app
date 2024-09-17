@@ -4,7 +4,7 @@ import { getLatestNews } from "../api";
 
 function LatestNews() {
   const [latestNews, setLatestNews] = useState([]);
-  const navigate = useNavigate(); // Hook for programmatic navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
     getLatestNews(1)

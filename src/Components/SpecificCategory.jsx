@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import { getArticlesByCategory } from "../api";
 
 function SpecificCategory({ activeCategory }) {
   const [articles, setArticles] = useState([]);
-  const navigate = useNavigate(); // Hook for programmatic navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -30,7 +30,7 @@ function SpecificCategory({ activeCategory }) {
         <>
           <div
             className="main-news"
-            onClick={() => handleArticleClick(articles[0].id)} // Add click handler to main news
+            onClick={() => handleArticleClick(articles[0].id)}
           >
             <div className="main-news-info">
               <p className="snews-date">
@@ -51,7 +51,7 @@ function SpecificCategory({ activeCategory }) {
               <div
                 key={article.id}
                 className="news-item"
-                onClick={() => handleArticleClick(article.id)} // Add click handler to other news items
+                onClick={() => handleArticleClick(article.id)}
               >
                 <img
                   src={article.image || "/src/assets/images.png"}

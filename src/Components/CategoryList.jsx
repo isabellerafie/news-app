@@ -6,7 +6,7 @@ function CategoryList() {
   const [categories, setCategories] = useState([]);
   const [articles, setArticles] = useState({});
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Hook for programmatic navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategoriesAndArticles = async () => {
@@ -47,7 +47,7 @@ function CategoryList() {
               <div
                 key={item.id}
                 className="news-item"
-                onClick={() => handleClick(item.id)} // Add click handler
+                onClick={() => handleClick(item.id)}
               >
                 <img
                   src={item.image || "/src/assets/images.png"}

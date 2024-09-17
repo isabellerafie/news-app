@@ -9,7 +9,7 @@ function Header({ setActiveCategory, onSearch }) {
   const [categories, setCategories] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
 
-  const navigate = useNavigate(); // Use navigate for routing
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCategories()
@@ -32,7 +32,7 @@ function Header({ setActiveCategory, onSearch }) {
   const clearSearch = () => {
     setIsSearchVisible(false);
     setSearchQuery("");
-    setSearchResults([]); // Clear search results
+    setSearchResults([]);
   };
 
   const toggleSidebar = () => {
@@ -42,7 +42,7 @@ function Header({ setActiveCategory, onSearch }) {
   const handleCategoryClick = (categoryId) => {
     setActiveCategory(categoryId);
     navigate(`/category/${categoryId}`);
-    clearSearch(); // Clear search results
+    clearSearch();
     setIsSidebarVisible(false); // Close the sidebar
   };
 
@@ -68,12 +68,12 @@ function Header({ setActiveCategory, onSearch }) {
 
   const handleHomeClick = () => {
     navigate("/");
-    clearSearch(); // Clear search results
+    clearSearch();
   };
 
   const handleLatestClick = () => {
     navigate("/latest");
-    clearSearch(); // Clear search results
+    clearSearch();
   };
 
   const filteredCategories = Array.isArray(categories)

@@ -5,7 +5,7 @@ import { getLatestNews } from "../api";
 function NewsSlider() {
   const [newsItems, setNewsItems] = useState([]);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Hook for programmatic navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -35,7 +35,7 @@ function NewsSlider() {
           <div
             className="news-slide"
             key={newsItem.id}
-            onClick={() => handleClick(newsItem.id)} // Add click handler
+            onClick={() => handleClick(newsItem.id)}
           >
             <img
               src={newsItem.image || "/src/assets/images.png"}
