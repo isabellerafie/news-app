@@ -4,23 +4,23 @@ import { getSingleArticle } from "../api";
 
 function SingleNewsArticle() {
   const { id } = useParams(); // Get the article ID from the URL
-  const [article, setArticle] = useState(null); // State to store the article
+  const [article, setArticle] = useState(null);
 
   useEffect(() => {
-    // Fetch the article details when the component mounts
     getSingleArticle(id)
       .then((response) => {
-        setArticle(response.data.data); // Update the state with the article data
+        setArticle(response.data.data);
       })
       .catch((error) => {
         console.error("Error fetching article details:", error);
       });
-  }, [id]); // Dependency array includes id to refetch if it changes
+  }, [id]);
 
   // Scroll to the top when the component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <div className="single-news-article">
       {article ? (
