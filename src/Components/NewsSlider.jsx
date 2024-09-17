@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getLatestNews } from "../api"; // Import the API function
+import { getLatestNews } from "../api";
 
 function NewsSlider() {
   const [newsItems, setNewsItems] = useState([]);
@@ -8,10 +8,10 @@ function NewsSlider() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await getLatestNews(1); // Fetch the first page
-        setNewsItems(response.data.data); // Update state with fetched data
+        const response = await getLatestNews(1);
+        setNewsItems(response.data.data);
       } catch (err) {
-        setError(err.message); // Handle error
+        setError(err.message);
       }
     };
 
@@ -27,7 +27,6 @@ function NewsSlider() {
       <div className="news-slider">
         {newsItems.map((newsItem) => (
           <div className="news-slide" key={newsItem.id}>
-            {/* Display a placeholder image if image is null */}
             <img
               src={newsItem.image || "/src/assets/images.png"}
               alt={newsItem.category.title}

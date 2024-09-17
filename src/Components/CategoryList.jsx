@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCategories, getArticlesByCategory } from "../api"; // Import API functions
+import { getCategories, getArticlesByCategory } from "../api";
 
 function CategoryList() {
   const [categories, setCategories] = useState([]);

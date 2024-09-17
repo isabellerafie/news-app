@@ -18,7 +18,6 @@ function SpecificCategory({ activeCategory }) {
     fetchArticles();
   }, [activeCategory]);
 
-  // Filter out articles if the API returns categories in the response
   const filteredArticles = articles.filter(
     (article) => article.category.id === activeCategory
   );
