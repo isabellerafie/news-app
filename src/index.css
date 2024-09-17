@@ -147,11 +147,11 @@ body {
 }
 
 .news-slider-container {
-  margin-top: 95px;
+  margin-top: 112px;
   margin-left: -32px;
+  margin-right: 0;
   width: 100%;
   position: static;
-  left: 0;
 }
 
 .news-slider {
@@ -173,7 +173,7 @@ body {
 }
 
 .news-slide img {
-  width: 390px;
+  width: 100vw;
   height: 300px;
   object-fit: cover;
 }
@@ -204,11 +204,12 @@ body {
 }
 
 .news-slogan {
-  font-weight: bold;
+  /* font-weight: bold; */
   color: #ffffff;
-  font-size: 1rem;
-  margin-bottom: 3px;
-  padding: 20px;
+  font-size: 0.7rem;
+  margin-top: 190px;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .news-slider::-webkit-scrollbar {
