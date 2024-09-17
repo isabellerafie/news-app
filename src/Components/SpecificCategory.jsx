@@ -9,7 +9,7 @@ function SpecificCategory({ activeCategory }) {
       try {
         const response = await getArticlesByCategory(activeCategory);
         console.log(response.data);
-        setArticles(response.data.data); // Adjust based on API response structure
+        setArticles(response.data.data);
       } catch (error) {
         console.error("Error fetching articles:", error);
       }
@@ -18,12 +18,9 @@ function SpecificCategory({ activeCategory }) {
     fetchArticles();
   }, [activeCategory]);
 
-  console.log("Articles Data:", articles);
-  console.log("Image URL:", articles.image);
-
   // Filter out articles if the API returns categories in the response
   const filteredArticles = articles.filter(
-    (article) => article.category.title === activeCategory
+    (article) => article.category.id === activeCategory
   );
 
   return (
@@ -69,9 +66,7 @@ function SpecificCategory({ activeCategory }) {
           </div>
         </>
       ) : (
-        <p className="no-news">
-          No news available for the category: <br /> "{activeCategory}"
-        </p>
+        <p className="no-news">No news available</p>
       )}
     </div>
   );

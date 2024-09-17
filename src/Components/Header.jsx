@@ -12,7 +12,6 @@ function Header({ setActivePage, setActiveCategory, onSearch }) {
     // Fetch categories from API
     getCategories()
       .then((response) => {
-        console.log("API response:", response);
         if (response.data && Array.isArray(response.data.data)) {
           setCategories(response.data.data); // Update state with the categories array
         } else {
@@ -37,9 +36,13 @@ function Header({ setActivePage, setActiveCategory, onSearch }) {
     setIsSidebarVisible(!isSidebarVisible);
   };
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (categoryId) => {
+    const API_BASE_URL = "https://www.almarkazia.com/ar/api/news";
+
+    console.log("Category ID:", categoryId); // Log the category ID
+    console.log("API URL:", `${API_BASE_URL}/?category=${categoryId}`);
     setActivePage("category");
-    setActiveCategory(category);
+    setActiveCategory(categoryId);
     setIsSidebarVisible(false); // Close the sidebar when a category is clicked
   };
 
@@ -50,7 +53,6 @@ function Header({ setActivePage, setActiveCategory, onSearch }) {
   // Detect 'Enter' key press
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      // Call the searchArticles API with the search query and page number (set to 1 initially)
       searchArticles(searchQuery, 1)
         .then((response) => {
           console.log("Search results:", response.data);
@@ -140,8 +142,8 @@ function Header({ setActivePage, setActiveCategory, onSearch }) {
           <ul>
             {filteredCategories.length > 0 ? (
               filteredCategories.map((item) => (
-                <li key={item.title}>
-                  <a href="#" onClick={() => handleCategoryClick(item.title)}>
+                <li key={item.id}>
+                  <a href="#" onClick={() => handleCategoryClick(item.id)}>
                     {item.title}
                   </a>
                 </li>
