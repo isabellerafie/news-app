@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getCategories, getArticlesByCategory } from "../api";
 
 function CategoryList() {
   const [categories, setCategories] = useState([]);
   const [articles, setArticles] = useState({});
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Hook for programmatic navigation
 
   useEffect(() => {
     const fetchCategoriesAndArticles = async () => {
@@ -27,6 +29,10 @@ function CategoryList() {
     fetchCategoriesAndArticles();
   }, []);
 
+  const handleClick = (id) => {
+    navigate(`/news-details/${id}`); // Navigate to Single News Article Page
+  };
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -38,7 +44,11 @@ function CategoryList() {
           <h2 className="category-name">{category.title}</h2>
           <div className="news-items">
             {articles[category.id]?.map((item) => (
-              <div key={item.id} className="news-item">
+              <div
+                key={item.id}
+                className="news-item"
+                onClick={() => handleClick(item.id)} // Add click handler
+              >
                 <img
                   src={item.image || "/src/assets/images.png"}
                   alt={item.title}

@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getCategories, searchArticles } from "../api";
 
-function Header({ setActivePage, setActiveCategory, onSearch }) {
+function Header({ setActiveCategory, onSearch }) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [categories, setCategories] = useState([]); // State to store categories
-  const [searchResults, setSearchResults] = useState([]); // State to store search results
+  const [categories, setCategories] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+
+  const navigate = useNavigate(); // Use navigate for routing
 
   useEffect(() => {
-    // Fetch categories from API
     getCategories()
       .then((response) => {
         if (response.data && Array.isArray(response.data.data)) {
-          setCategories(response.data.data); // Update state with the categories array
+          setCategories(response.data.data);
         } else {
           console.error("Unexpected response data:", response);
         }
@@ -30,6 +32,7 @@ function Header({ setActivePage, setActiveCategory, onSearch }) {
   const clearSearch = () => {
     setIsSearchVisible(false);
     setSearchQuery("");
+    setSearchResults([]); // Clear search results
   };
 
   const toggleSidebar = () => {
@@ -37,44 +40,45 @@ function Header({ setActivePage, setActiveCategory, onSearch }) {
   };
 
   const handleCategoryClick = (categoryId) => {
-    const API_BASE_URL = "https://www.almarkazia.com/ar/api/news";
-
-    console.log("Category ID:", categoryId); // Log the category ID
-    console.log("API URL:", `${API_BASE_URL}/?category=${categoryId}`);
-    setActivePage("category");
     setActiveCategory(categoryId);
-    setIsSidebarVisible(false); // Close the sidebar when a category is clicked
+    navigate(`/category/${categoryId}`);
+    clearSearch(); // Clear search results
+    setIsSidebarVisible(false); // Close the sidebar
   };
 
   const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value); // Update the search query as the user types
+    setSearchQuery(event.target.value);
   };
 
-  // Detect 'Enter' key press
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       searchArticles(searchQuery, 1)
         .then((response) => {
-          console.log("Search results:", response.data);
-          setSearchResults(response.data.data); // Store the search results
+          setSearchResults(response.data.data);
           if (onSearch) {
-            onSearch(response.data.data); // Pass the results to parent if needed
+            onSearch(response.data.data);
           }
         })
         .catch((error) => {
           console.error("Error searching articles:", error);
         });
-
-      clearSearch(); // Clear the search after the search is submitted
+      clearSearch(); // Clear search after the search is submitted
     }
   };
 
-  // Filtering categories based on search query
+  const handleHomeClick = () => {
+    navigate("/");
+    clearSearch(); // Clear search results
+  };
+
+  const handleLatestClick = () => {
+    navigate("/latest");
+    clearSearch(); // Clear search results
+  };
+
   const filteredCategories = Array.isArray(categories)
-    ? categories.filter(
-        (item) =>
-          item.title &&
-          item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    ? categories.filter((item) =>
+        item.title.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : [];
 
@@ -82,16 +86,13 @@ function Header({ setActivePage, setActiveCategory, onSearch }) {
     <>
       <header className={`header ${isSearchVisible ? "blur" : ""}`}>
         <div className="header__container">
-          {/* Search Icon (on the left side) */}
           <i
             className="fas fa-search header__icon-left"
             onClick={toggleSearch}
           ></i>
-          {/* Logo (in the middle) */}
           <div className="header__logo">
             <img src="/src/assets/sync-logo.png" alt="Sync Logo" />
           </div>
-          {/* Menu Icon (on the right side) */}
           {isSidebarVisible ? (
             <i
               className="fas fa-times header__icon-right"
@@ -106,20 +107,18 @@ function Header({ setActivePage, setActiveCategory, onSearch }) {
         </div>
         <br />
         <div className="button-container">
-          <button className="home" onClick={() => setActivePage("home")}>
+          <button className="home" onClick={handleHomeClick}>
             الرئيسية
           </button>
-          <button className="latest" onClick={() => setActivePage("latest")}>
+          <button className="latest" onClick={handleLatestClick}>
             آخر الأخبار
           </button>
         </div>
       </header>
 
-      {/* Overlay */}
       {isSearchVisible && (
         <div className="overlay visible" onClick={clearSearch}></div>
       )}
-      {/* Search Input */}
       {isSearchVisible && (
         <div className="search-container">
           <i
@@ -152,12 +151,10 @@ function Header({ setActivePage, setActiveCategory, onSearch }) {
               <li>No categories found</li>
             )}
           </ul>
-          {/* Close Sidebar Icon */}
           <i className="fas fa-times close-sidebar" onClick={toggleSidebar}></i>
         </aside>
       )}
 
-      {/* Display search results */}
       {searchResults.length > 0 && (
         <div className="search-results-container">
           {searchResults.map((article) => (

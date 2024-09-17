@@ -454,3 +454,28 @@ body {
   background-color: #f1f1f1;
   cursor: pointer;
 }
+
+.single-news-article {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.article-details {
+  text-align: center;
+}
+
+.article-title {
+  font-size: 2em;
+  margin: 20px 0;
+}
+
+.article-date {
+  font-size: 1.2em;
+  color: gray;
+  margin-bottom: 20px;
+}
+
+.article-content {
+  text-align: left;
+}

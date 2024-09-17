@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getLatestNews } from "../api";
 
 function NewsSlider() {
   const [newsItems, setNewsItems] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Hook for programmatic navigation
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -18,6 +20,10 @@ function NewsSlider() {
     fetchNews();
   }, []);
 
+  const handleClick = (id) => {
+    navigate(`/news-details/${id}`); // Navigate to Single News Article Page
+  };
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -26,7 +32,11 @@ function NewsSlider() {
     <div className="news-slider-container">
       <div className="news-slider">
         {newsItems.map((newsItem) => (
-          <div className="news-slide" key={newsItem.id}>
+          <div
+            className="news-slide"
+            key={newsItem.id}
+            onClick={() => handleClick(newsItem.id)} // Add click handler
+          >
             <img
               src={newsItem.image || "/src/assets/images.png"}
               alt={newsItem.category.title}
