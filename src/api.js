@@ -12,7 +12,7 @@ export const getArticlesByCategory = (categoryId) =>
 
 // Function to get latest news
 export const getLatestNews = (pageNum) =>
-  axios.get(`${API_BASE_URL}?page=${pageNum}`);
+  axios.get(`${API_BASE_URL}/?page=${pageNum}`);
 
 // Function to search articles by keyword
 export const searchArticles = (keyword, pageNum) =>
