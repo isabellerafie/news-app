@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getSingleArticle } from "../api";
 
 function SingleNewsArticle() {
-  const { id } = useParams(); // Get the article ID from the URL
+  const { id } = useParams();
   const [article, setArticle] = useState(null);
   const [fontSize, setFontSize] = useState(16); // Default font size
 
@@ -66,7 +66,6 @@ function SingleNewsArticle() {
             alt={article.title}
             onError={(e) => (e.target.src = "/src/assets/images.png")}
           />
-          {/* Container for date, icons, and category */}
           <div className="article-info-row">
             <p className="article-date">{formatDate(article.date)}</p>
             <div className="article-icons">
@@ -81,9 +80,8 @@ function SingleNewsArticle() {
           <div
             className="article-content"
             style={{ fontSize: `${fontSize}px` }}
-          >
-            {article.content}
-          </div>
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
         </div>
       ) : (
         <p>No article found</p>
