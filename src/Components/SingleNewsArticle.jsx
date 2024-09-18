@@ -11,9 +11,9 @@ function SingleNewsArticle() {
     getSingleArticle(id)
       .then((response) => {
         if (response.data.data.length > 0) {
-          setArticle(response.data.data[0]); // Access the first article in the array
+          setArticle(response.data.data[0]);
         } else {
-          setArticle(null); // Handle case when no article is returned
+          setArticle(null);
         }
       })
       .catch((error) => {
@@ -29,7 +29,7 @@ function SingleNewsArticle() {
   // Function to format the date
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString(); // Formats the date as MM/DD/YYYY by default, you can customize it
+    return date.toLocaleDateString(); // Formats the date as MM/DD/YYYY
   };
 
   // Function to handle sharing
@@ -38,13 +38,12 @@ function SingleNewsArticle() {
       navigator
         .share({
           title: article.title,
-          text: article.description, // Optional: you can add a description or snippet
+          text: article.description,
           url: window.location.href, // Share the current URL
         })
         .then(() => console.log("Share successful"))
         .catch((error) => console.error("Error sharing:", error));
     } else {
-      // Fallback: You might want to show a message or use a different sharing method
       alert("Web Share API is not supported in your browser.");
     }
   };
