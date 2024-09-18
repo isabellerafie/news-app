@@ -473,24 +473,52 @@ body {
   margin-top: 0;
 }
 
-.article-title {
-  font-size: 1em;
-  margin-top: 0;
-  font-weight: bolder;
-  text-align: right;
-  margin-right: -20px;
-  color: black;
+.article-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -20px;
+  padding: 0 5px;
 }
 
 .article-date {
+  font-size: 1em;
+  color: #acacac;
+}
+
+.article-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.article-icons i {
   font-size: 1.2em;
-  color: gray;
-  margin-bottom: 20px;
+  color: #d1d1d1;
+  cursor: pointer;
+}
+
+.category-label {
+  color: #ffffff;
+  background-color: #00112f;
+  padding: 3px 5px;
+  font-size: 11px;
+}
+
+hr {
+  border: 1px solid #00112f;
+  margin-top: -10px;
+}
+
+.article-title {
+  font-size: 1.1em;
+  font-weight: bolder;
+  text-align: right;
+  color: black;
 }
 
 .article-content {
-  text-align: center;
-  justify-content: left;
   color: #acacac;
   font-weight: bold;
+  font-size: 1em;
+  text-align: right;
 }

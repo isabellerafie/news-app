@@ -76,6 +76,11 @@ function Header({ setActiveCategory, onSearch }) {
     clearSearch();
   };
 
+  const handleResultClick = (articleId) => {
+    navigate(`/news-details/${articleId}`);
+    clearSearch();
+  };
+
   const filteredCategories = Array.isArray(categories)
     ? categories.filter((item) =>
         item.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -158,14 +163,18 @@ function Header({ setActiveCategory, onSearch }) {
       {searchResults.length > 0 && (
         <div className="search-results-container">
           {searchResults.map((article) => (
-            <div key={article.id} className="search-result-item">
+            <div
+              key={article.id}
+              className="search-result-item"
+              onClick={() => handleResultClick(article.id)}
+            >
               <h3>{article.title}</h3>
               <p>{article.date}</p>
               <img
                 src={article.image || "/src/assets/images.png"}
                 alt={article.title}
                 onError={(e) => (e.target.src = "/src/assets/images.png")}
-              ></img>
+              />
             </div>
           ))}
         </div>
