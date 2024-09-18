@@ -9,7 +9,11 @@ function SingleNewsArticle() {
   useEffect(() => {
     getSingleArticle(id)
       .then((response) => {
-        setArticle(response.data.data);
+        if (response.data.data.length > 0) {
+          setArticle(response.data.data[0]); // Access the first article in the array
+        } else {
+          setArticle(null); // Handle case when no article is returned
+        }
       })
       .catch((error) => {
         console.error("Error fetching article details:", error);
