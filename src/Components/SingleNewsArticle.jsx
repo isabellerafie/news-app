@@ -6,8 +6,10 @@ function SingleNewsArticle() {
   const { id } = useParams();
   const [article, setArticle] = useState(null);
   const [fontSize, setFontSize] = useState(16); // Default font size
+  const [isLoading, setIsLoading] = useState(true); // Loading state
 
   useEffect(() => {
+    setIsLoading(true); // Set loading to true when fetching article
     getSingleArticle(id)
       .then((response) => {
         if (response.data.data.length > 0) {
@@ -18,6 +20,9 @@ function SingleNewsArticle() {
       })
       .catch((error) => {
         console.error("Error fetching article details:", error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Set loading to false after fetch
       });
   }, [id]);
 
@@ -59,7 +64,13 @@ function SingleNewsArticle() {
 
   return (
     <div className="single-news-article">
-      {article ? (
+      {isLoading ? (
+        <div className="preloader-overlay">
+          <div className="loading-indicator">
+            <p>Loading...</p>
+          </div>
+        </div>
+      ) : article ? (
         <div className="article-details">
           <img
             src={article.image || "/src/assets/images.png"}

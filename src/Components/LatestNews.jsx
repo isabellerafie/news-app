@@ -4,28 +4,52 @@ import { getLatestNews } from "../api";
 
 function LatestNews() {
   const [latestNews, setLatestNews] = useState([]);
+  const [pageNum, setPageNum] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // To track if data is being loaded
   const navigate = useNavigate();
 
   useEffect(() => {
-    getLatestNews(1)
+    loadNews(pageNum);
+  }, [pageNum]);
+
+  const loadNews = (page) => {
+    setIsLoading(true); // Set loading to true when fetching new data
+    getLatestNews(page)
       .then((response) => {
-        setLatestNews(response.data.data);
+        const newNews = response.data.data;
+
+        if (newNews.length === 0) {
+          setHasMore(false); // No more news to load
+        } else {
+          setLatestNews((prevNews) => [...prevNews, ...newNews]);
+        }
+        setIsLoading(false); // Data has finished loading
       })
       .catch((err) => {
         console.error("Failed to fetch latest news:", err);
+        setIsLoading(false); // Stop loading in case of error
       });
-  }, []);
+  };
 
   const handleClick = (id) => {
-    navigate(`/news-details/${id}`); // Navigate to Single News Article Page
+    navigate(`/news-details/${id}`);
+  };
+
+  const handleLoadMore = () => {
+    setPageNum((prevPageNum) => prevPageNum + 1);
   };
 
   return (
     <div className="latest-list">
-      {latestNews.map((latestItem) => (
+      {latestNews.length === 0 && isLoading && (
+        <p>Loading latest news...</p> // Display loading indicator
+      )}
+
+      {latestNews.map((latestItem, index) => (
         <div
           className="latest-item"
-          key={latestItem.id}
+          key={`${latestItem.id}-${index}`}
           onClick={() => handleClick(latestItem.id)}
         >
           <img
@@ -42,6 +66,15 @@ function LatestNews() {
           </div>
         </div>
       ))}
+
+      {/* Conditionally show Load More button at the bottom if not loading and news exist */}
+      {!isLoading && latestNews.length > 0 && hasMore && (
+        <div className="load-more-wrapper">
+          <button className="load-more" onClick={handleLoadMore}>
+            Load More
+          </button>
+        </div>
+      )}
     </div>
   );
 }
