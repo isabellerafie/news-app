@@ -143,7 +143,9 @@ function Header({ setActiveCategory, onSearch }) {
         </div>
         <br />
         {!isOnSingleArticlePage && (
-          <div className="button-container">
+          <div
+            className={`button-container ${isSidebarVisible ? "margin" : ""}`}
+          >
             <button
               className={`home ${activePage === "home" ? "active" : ""}`}
               onClick={handleHomeClick}
@@ -191,7 +193,11 @@ function Header({ setActiveCategory, onSearch }) {
       {!isLoading && ( // Only render this part if not loading
         <>
           {isSidebarVisible && (
-            <aside className="sidebar">
+            <aside className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
+              <i
+                className="fas fa-times close-sidebar"
+                onClick={toggleSidebar}
+              ></i>
               <ul>
                 {filteredCategories.length > 0 ? (
                   filteredCategories.map((item) => (
@@ -205,10 +211,6 @@ function Header({ setActiveCategory, onSearch }) {
                   <li>No categories found</li>
                 )}
               </ul>
-              <i
-                className="fas fa-times close-sidebar"
-                onClick={toggleSidebar}
-              ></i>
             </aside>
           )}
 

@@ -48,6 +48,10 @@ body {
   font-size: 20px;
 }
 
+.button-container.margin {
+  margin-right: 190px;
+}
+
 /* .button-container button::after {
   content: "";
   display: block;
@@ -141,17 +145,18 @@ body {
 }
 
 .sidebar {
-  position: fixed;
+  float: right;
   top: 0;
   right: 0;
-  width: 150px;
+  width: 130px;
   height: 100%;
-  overflow-y: scroll; /* Enable vertical scrollbar */
+  overflow-y: scroll;
+  /* Enable vertical scrollbar */
   background-color: #00112f;
   padding: 20px;
   color: #00112f;
-  margin-top: 60px;
   z-index: 10000;
+  margin-right: -30px;
 }
 
 .sidebar a {
@@ -454,6 +459,15 @@ body {
   text-align: center;
   font-size: 10px;
   margin-top: -10px;
+}
+
+.preloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: #00112f;
 }
 
 .no-news {

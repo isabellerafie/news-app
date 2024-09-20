@@ -4,15 +4,19 @@ import { getArticlesByCategory } from "../api";
 
 function SpecificCategory({ activeCategory }) {
   const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchArticles = async () => {
+      setIsLoading(true); // Start loading
       try {
         const response = await getArticlesByCategory(activeCategory);
         setArticles(response.data.data);
       } catch (error) {
         console.error("Error fetching articles:", error);
+      } finally {
+        setIsLoading(false); // End loading
       }
     };
 
@@ -26,7 +30,11 @@ function SpecificCategory({ activeCategory }) {
   return (
     <div className="specific-category-page">
       <h1>{activeCategory}</h1>
-      {articles.length > 0 ? (
+      {isLoading ? ( // Show preloader while loading
+        <div className="preloader">
+          <p>Loading articles...</p>
+        </div>
+      ) : articles.length > 0 ? (
         <>
           <div
             className="main-news"

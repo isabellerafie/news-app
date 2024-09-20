@@ -6,7 +6,7 @@ function LatestNews() {
   const [latestNews, setLatestNews] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(true); // To track if data is being loaded
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function LatestNews() {
       })
       .catch((err) => {
         console.error("Failed to fetch latest news:", err);
-        setIsLoading(false); // Stop loading in case of error
+        setIsLoading(false);
       });
   };
 

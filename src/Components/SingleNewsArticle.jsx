@@ -6,7 +6,7 @@ function SingleNewsArticle() {
   const { id } = useParams();
   const [article, setArticle] = useState(null);
   const [fontSize, setFontSize] = useState(16); // Default font size
-  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true); // Set loading to true when fetching article
