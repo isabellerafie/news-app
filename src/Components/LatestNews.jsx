@@ -1,51 +1,63 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+//useSelector btkhallini a3mol access 3al state mn l store
+//useDispatch btkhallini eb3at actions to the Redux Store to modify the state
 import { useNavigate } from "react-router-dom";
 import { getLatestNews } from "../api";
+import { setLatestNews, setStatus, setError } from "../reducers/newsReducer"; //used to update the Redux store
 
 function LatestNews() {
-  const [latestNews, setLatestNews] = useState([]);
-  const [pageNum, setPageNum] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    loadNews(pageNum);
-  }, [pageNum]);
+  const latestNews = useSelector((state) => state.news.latestNews); //array of latest news
+  const status = useSelector((state) => state.news.status);
+  const error = useSelector((state) => state.news.error);
+  const [pageNum, setPageNum] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
-  const loadNews = (page) => {
-    setIsLoading(true); // Set loading to true when fetching new data
-    getLatestNews(page)
+  useEffect(() => {
+    if (pageNum === 1 && latestNews.length === 0) {
+      //eza nhna b awal page w ma 3na news already loaded
+      dispatch(setStatus("loading")); //to display the preloader
+    }
+
+    getLatestNews(pageNum) //fetch latest news for that specific page
       .then((response) => {
         const newNews = response.data.data;
-
         if (newNews.length === 0) {
-          setHasMore(false); // No more news to load
+          // No more news to load
+          setHasMore(false);
         } else {
-          setLatestNews((prevNews) => [...prevNews, ...newNews]);
+          dispatch(setLatestNews([...latestNews, ...newNews])); // Append new news aal 2dem
         }
-        setIsLoading(false); // Data has finished loading
+        dispatch(setStatus("succeeded"));
       })
       .catch((err) => {
-        console.error("Failed to fetch latest news:", err);
-        setIsLoading(false);
+        dispatch(setError(err.message));
+        dispatch(setStatus("failed"));
       });
-  };
+  }, [dispatch, pageNum]);
 
   const handleClick = (id) => {
     navigate(`/news-details/${id}`);
   };
 
-  const handleLoadMore = () => {
+  const handleLoadMore = (event) => {
+    event.preventDefault(); //cz kenet 3am ta3mol refresh lal page before showing new news
     setPageNum((prevPageNum) => prevPageNum + 1);
   };
 
+  if (status === "loading") {
+    return <p>Loading latest news...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
     <div className="latest-list">
-      {latestNews.length === 0 && isLoading && (
-        <p>Loading latest news...</p> // Display loading indicator
-      )}
-
       {latestNews.map((latestItem, index) => (
         <div
           className="latest-item"
@@ -67,10 +79,9 @@ function LatestNews() {
         </div>
       ))}
 
-      {/* Conditionally show Load More button at the bottom if not loading and news exist */}
-      {!isLoading && latestNews.length > 0 && hasMore && (
+      {hasMore && (
         <div className="load-more-wrapper">
-          <button className="load-more" onClick={handleLoadMore}>
+          <button className="load-more" type="button" onClick={handleLoadMore}>
             Load More
           </button>
         </div>

@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux"; //useSelector btkhallini a3mol access 3al state mn l store
 import { useNavigate } from "react-router-dom";
-import { getLatestNews } from "../api";
-
 function NewsSlider() {
-  const [newsItems, setNewsItems] = useState([]);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const response = await getLatestNews(1);
-        setNewsItems(response.data.data);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-
-    fetchNews();
-  }, []);
+  const newsItems = useSelector((state) => state.news.latestNews); //contains the latest news
+  const error = useSelector((state) => state.news.error);
+  const status = useSelector((state) => state.news.status);
 
   const handleClick = (id) => {
-    navigate(`/news-details/${id}`); // Navigate to Single News Article Page
+    navigate(`/news-details/${id}`);
   };
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -31,7 +22,7 @@ function NewsSlider() {
   return (
     <div className="news-slider-container">
       <div className="news-slider">
-        {newsItems.map((newsItem) => (
+        {newsItems.slice(0, 4).map((newsItem) => (
           <div
             className="news-slide"
             key={newsItem.id}
