@@ -18,18 +18,22 @@ function LatestNews() {
 
   useEffect(() => {
     if (pageNum === 1 && latestNews.length === 0) {
-      //eza nhna b awal page w ma 3na news already loaded
-      dispatch(setStatus("loading")); //to display the preloader
+      dispatch(setStatus("loading")); // Display the preloader
     }
 
-    getLatestNews(pageNum) //fetch latest news for that specific page
+    getLatestNews(pageNum) // Fetch latest news for that specific page
       .then((response) => {
         const newNews = response.data.data;
         if (newNews.length === 0) {
-          // No more news to load
-          setHasMore(false);
+          setHasMore(false); // No more news to load
         } else {
-          dispatch(setLatestNews([...latestNews, ...newNews])); // Append new news aal 2dem
+          // Combine existing news and new news, ensuring uniqueness by id
+          const combinedNews = [...latestNews, ...newNews];
+          const uniqueNews = Array.from(
+            new Set(combinedNews.map((item) => item.id))
+          ).map((id) => combinedNews.find((item) => item.id === id));
+
+          dispatch(setLatestNews(uniqueNews)); // Set unique news
         }
         dispatch(setStatus("succeeded"));
       })
