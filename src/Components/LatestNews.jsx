@@ -27,7 +27,7 @@ function LatestNews() {
         if (newNews.length === 0) {
           setHasMore(false); // No more news to load
         } else {
-          // Combine existing news and new news, ensuring uniqueness by id
+          // Combine existing news and new news
           const combinedNews = [...latestNews, ...newNews];
           const uniqueNews = Array.from(
             new Set(combinedNews.map((item) => item.id))
