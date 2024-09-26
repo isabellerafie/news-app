@@ -1,11 +1,30 @@
-import React from "react";
-import { useSelector } from "react-redux"; //useSelector btkhallini a3mol access 3al state mn l store
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux"; //useSelector btkhallini a3mol access 3al state mn l store
 import { useNavigate } from "react-router-dom";
+import { getLatestNews } from "../api";
+import { setLatestNews, setStatus, setError } from "../reducers/newsReducer";
+
 function NewsSlider() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const newsItems = useSelector((state) => state.news.latestNews); //contains the latest news
   const error = useSelector((state) => state.news.error);
   const status = useSelector((state) => state.news.status);
+
+  useEffect(() => {
+    if (newsItems.length === 0) {
+      dispatch(setStatus("loading"));
+      getLatestNews(1) // Fetch the latest news when NewsSlider mounts
+        .then((response) => {
+          dispatch(setLatestNews(response.data.data));
+          dispatch(setStatus("succeeded"));
+        })
+        .catch((err) => {
+          dispatch(setError(err.message));
+          dispatch(setStatus("failed"));
+        });
+    }
+  }, [dispatch, newsItems]);
 
   const handleClick = (id) => {
     navigate(`/news-details/${id}`);
