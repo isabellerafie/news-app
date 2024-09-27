@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { searchArticles } from "../api";
+import { searchArticles } from "../api"; // Import your searchArticles API
 
 function SearchResults() {
   const location = useLocation();
