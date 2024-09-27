@@ -7,6 +7,8 @@ import LatestNews from "./Components/LatestNews";
 import NewsSliderComponent from "./Components/NewsSlider";
 import SpecificCategory from "./Components/SpecificCategory";
 import SingleNewsArticle from "./Components/SingleNewsArticle";
+import SearchResults from "./Components/SearchResults";
+
 import { Provider } from "react-redux"; // Import the Redux Provider
 import store from "./store"; // Import the store
 
@@ -41,6 +43,9 @@ function App() {
 
           {/* Single News Article Route */}
           <Route path="/news-details/:id" element={<SingleNewsArticle />} />
+
+          {/* Search Results */}
+          <Route path="/search-results" element={<SearchResults />} />
         </Routes>
       </Router>
     </Provider>

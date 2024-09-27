@@ -66,21 +66,23 @@ function Header({ setActiveCategory, onSearch }) {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      setIsLoading(true); // Start loading
-      searchArticles(searchQuery, 1)
+      setIsLoading(true); // Show loading state
+      searchArticles(searchQuery, 1) // Call search API with the query
         .then((response) => {
-          setSearchResults(response.data.data);
-          if (onSearch) {
-            onSearch(response.data.data);
-          }
+          setSearchResults(response.data.data); // Set initial search results
+
+          // Navigate to SearchResults page and pass the query and results
+          navigate("/search-results", {
+            state: { searchQuery, searchResults: response.data.data },
+          });
         })
         .catch((error) => {
           console.error("Error searching articles:", error);
         })
         .finally(() => {
-          setIsLoading(false); // Stop loading once the search completes
+          setIsLoading(false); // Stop loading once search is done
         });
-      clearSearch(); // Clear search after the search is submitted
+      clearSearch(); // Clear search input field after the search
     }
   };
 
@@ -96,10 +98,10 @@ function Header({ setActiveCategory, onSearch }) {
     clearSearch();
   };
 
-  const handleResultClick = (articleId) => {
-    navigate(`/news-details/${articleId}`);
-    clearSearch();
-  };
+  // const handleResultClick = (articleId) => {
+  //   navigate(`/news-details/${articleId}`);
+  //   clearSearch();
+  // };
 
   const filteredCategories = Array.isArray(categories)
     ? categories.filter((item) =>
@@ -214,7 +216,7 @@ function Header({ setActiveCategory, onSearch }) {
             </aside>
           )}
 
-          {searchResults.length > 0 && (
+          {/* {searchResults.length > 0 && (
             <div className="search-results-container">
               {searchResults.map((article) => (
                 <div
@@ -239,7 +241,7 @@ function Header({ setActiveCategory, onSearch }) {
                 </div>
               ))}
             </div>
-          )}
+          )} */}
         </>
       )}
     </>
