@@ -17,7 +17,7 @@ export const getLatestNews = (pageNum) =>
 // Function to search articles by keyword
 export const searchArticles = (keyword, pageNum) =>
   axios.get(`${API_BASE_URL}/?keyword=${keyword}&page=${pageNum}`, {
-    timeout: 3000, // Set timeout to 3 seconds (3000 milliseconds)
+    timeout: 10000, // Set timeout to 10 seconds (10000 milliseconds)
   });
 
 // Function to get a single article by ID

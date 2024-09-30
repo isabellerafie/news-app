@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getCategories, searchArticles } from "../api";
+import { AppBar, Button, IconButton, TextField } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import CircularProgress from "@mui/material/CircularProgress";
+import Drawer from "@mui/material/Drawer";
 
-function Header({ setActiveCategory, onSearch }) {
+function Header({ setActiveCategory }) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,7 +35,6 @@ function Header({ setActiveCategory, onSearch }) {
       });
   }, []);
 
-  // Update activePage based on the current route
   useEffect(() => {
     if (location.pathname === "/") {
       setActivePage("home");
@@ -57,7 +63,7 @@ function Header({ setActiveCategory, onSearch }) {
     setActiveCategory(categoryId);
     navigate(`/category/${categoryId}`);
     clearSearch();
-    setIsSidebarVisible(false); // Close the sidebar
+    setIsSidebarVisible(false);
   };
 
   const handleSearchInputChange = (event) => {
@@ -66,12 +72,10 @@ function Header({ setActiveCategory, onSearch }) {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      setIsLoading(true); // Show loading state
-      searchArticles(searchQuery, 1) // Call search API with the query
+      setIsLoading(true);
+      searchArticles(searchQuery, 1)
         .then((response) => {
-          setSearchResults(response.data.data); // Set initial search results
-
-          // Navigate to SearchResults page and pass the query and results
+          setSearchResults(response.data.data);
           navigate("/search-results", {
             state: { searchQuery, searchResults: response.data.data },
           });
@@ -80,9 +84,9 @@ function Header({ setActiveCategory, onSearch }) {
           console.error("Error searching articles:", error);
         })
         .finally(() => {
-          setIsLoading(false); // Stop loading once search is done
+          setIsLoading(false);
         });
-      clearSearch(); // Clear search input field after the search
+      clearSearch();
     }
   };
 
@@ -98,11 +102,6 @@ function Header({ setActiveCategory, onSearch }) {
     clearSearch();
   };
 
-  // const handleResultClick = (articleId) => {
-  //   navigate(`/news-details/${articleId}`);
-  //   clearSearch();
-  // };
-
   const filteredCategories = Array.isArray(categories)
     ? categories.filter((item) =>
         item.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -113,73 +112,79 @@ function Header({ setActiveCategory, onSearch }) {
 
   return (
     <>
-      <header className={`header ${isSearchVisible ? "blur" : ""}`}>
+      <AppBar //To replace the header and create a top navigation bar
+        className={`header ${isSearchVisible ? "blur" : ""}`}
+        sx={{ backgroundColor: "#00112f", transition: "margin 0.3s" }}
+        style={{ marginLeft: isSidebarVisible ? 250 : 0 }} // Push content to the left
+      >
         <div className="header__container">
           {isOnSingleArticlePage ? (
-            <i
-              className="fas fa-chevron-left header__icon-left"
+            <IconButton
               onClick={() => navigate(-1)}
               title="Back"
-            ></i>
+              color="inherit"
+            >
+              <ArrowBackIosIcon />
+            </IconButton>
           ) : (
-            <i
-              className="fas fa-search header__icon-left"
-              onClick={toggleSearch}
-            ></i>
+            <IconButton onClick={toggleSearch} color="inherit">
+              <SearchIcon />
+            </IconButton>
           )}
+
           <div className="header__logo">
             <img src="/src/assets/sync-logo.png" alt="Sync Logo" />
           </div>
 
-          {isSidebarVisible ? (
-            <i
-              className="fas fa-times header__icon-right"
-              onClick={toggleSidebar}
-            ></i>
-          ) : (
-            <i
-              className="fas fa-bars header__icon-right"
-              onClick={toggleSidebar}
-            ></i>
-          )}
+          <IconButton onClick={toggleSidebar} color="inherit">
+            {isSidebarVisible ? <CloseIcon /> : <MenuIcon />}
+          </IconButton>
         </div>
         <br />
         {!isOnSingleArticlePage && (
           <div
             className={`button-container ${isSidebarVisible ? "margin" : ""}`}
           >
-            <button
+            <Button
               className={`home ${activePage === "home" ? "active" : ""}`}
               onClick={handleHomeClick}
             >
               الرئيسية
-            </button>
-            <button
+            </Button>
+            <Button
               className={`latest ${activePage === "latest" ? "active" : ""}`}
               onClick={handleLatestClick}
             >
               آخر الأخبار
-            </button>
+            </Button>
           </div>
         )}
-      </header>
+      </AppBar>
 
       {isSearchVisible && (
         <div className="overlay visible" onClick={clearSearch}></div>
       )}
       {isSearchVisible && (
         <div className="search-container">
-          <i
-            className="fas fa-times search-clear-icon"
-            onClick={clearSearch}
-          ></i>
-          <input
-            type="text"
+          <IconButton onClick={clearSearch} color="inherit">
+            <CloseIcon />
+          </IconButton>
+
+          <TextField
+            variant="outlined"
             placeholder="...اكتب شيئا"
             className="search-input"
             value={searchQuery}
             onChange={handleSearchInputChange}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress}
+            slotProps={{
+              htmlInput: {
+                style: {
+                  backgroundColor: "white", // Set background color to white
+                  textAlign: "right", // Set text alignment to right
+                },
+              },
+            }}
           />
         </div>
       )}
@@ -187,63 +192,37 @@ function Header({ setActiveCategory, onSearch }) {
       {isLoading && (
         <div className="preloader-overlay">
           <div className="loading-indicator">
-            <p>Loading...</p>
+            <CircularProgress color="primary" /> {/* loading indicator */}
           </div>
         </div>
       )}
 
-      {!isLoading && ( // Only render this part if not loading
-        <>
-          {isSidebarVisible && (
-            <aside className={`sidebar ${isSidebarVisible ? "visible" : ""}`}>
-              <i
-                className="fas fa-times close-sidebar"
-                onClick={toggleSidebar}
-              ></i>
-              <ul>
-                {filteredCategories.length > 0 ? (
-                  filteredCategories.map((item) => (
-                    <li key={item.id}>
-                      <a href="#" onClick={() => handleCategoryClick(item.id)}>
-                        {item.title}
-                      </a>
-                    </li>
-                  ))
-                ) : (
-                  <li>No categories found</li>
-                )}
-              </ul>
-            </aside>
-          )}
-
-          {/* {searchResults.length > 0 && (
-            <div className="search-results-container">
-              {searchResults.map((article) => (
-                <div
-                  key={article.id}
-                  className="latest-item"
-                  onClick={() => handleResultClick(article.id)}
-                >
-                  <img
-                    src={article.image || "/src/assets/images.png"}
-                    alt={article.title}
-                    onError={(e) => (e.target.src = "/src/assets/images.png")}
-                  />
-                  <div className="latest-details">
-                    <h2 className="latest-title">{article.title}</h2>
-                    <div className="line">
-                      <p className="latest-date">{article.date}</p>
-                      <h4 className="latest-category">
-                        {article.category.title}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )} */}
-        </>
-      )}
+      <Drawer
+        className="drawer"
+        anchor="right"
+        open={isSidebarVisible}
+        onClose={toggleSidebar}
+        variant="persistent"
+      >
+        <div className="sidebar-content" style={{ width: 250 }}>
+          <IconButton onClick={toggleSidebar} color="inherit">
+            <CloseIcon />
+          </IconButton>
+          <ul>
+            {filteredCategories.length > 0 ? (
+              filteredCategories.map((item) => (
+                <li key={item.id}>
+                  <a href="#" onClick={() => handleCategoryClick(item.id)}>
+                    {item.title}
+                  </a>
+                </li>
+              ))
+            ) : (
+              <li>No categories found</li>
+            )}
+          </ul>
+        </div>
+      </Drawer>
     </>
   );
 }

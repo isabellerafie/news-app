@@ -12,16 +12,17 @@ body {
   font-style: normal;
 }
 
-.header {
+AppBar {
   background-color: #00112f;
   color: #ffffff;
-  padding: 20px 5px;
+  /* padding: 20px 5px; */
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: fit-content;
   transition: backdrop-filter 0.3s ease;
+  width: 100vw;
 }
 
 .header__container {
@@ -29,6 +30,7 @@ body {
   justify-content: space-between;
   padding: 0 20px;
   align-items: center;
+  margin-top: 20px;
 }
 
 .header__logo img {
@@ -94,23 +96,19 @@ body {
   position: absolute;
   top: 7px;
   left: 20px;
-  right: 1px;
+  right: 20px;
   padding: 10px;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
-  z-index: 1001;
+  z-index: 10000;
 }
 
-.search-input {
+TextField {
   padding: 10px;
   border: 1px solid;
   border-radius: 5px;
   width: 100%;
   text-align: right;
-}
-
-.search-input::placeholder {
-  color: #acacac;
 }
 
 .search-clear-icon {
