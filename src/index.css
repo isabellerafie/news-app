@@ -279,8 +279,7 @@ TextField {
 }
 
 .latest-list {
-  margin-top: 90px;
-  font-size: 10px;
+  margin-top: 85px;
   overflow-y: scroll;
 }
 
@@ -289,7 +288,7 @@ TextField {
   display: flex;
   align-items: center;
   padding: 10px;
-  gap: 10px;
+  height: 125px;
 }
 
 .latest-item img {
@@ -302,21 +301,11 @@ TextField {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
 }
 
 .latest-title {
-  font-size: 15px;
   font-weight: bold;
   margin-bottom: 5px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limits to 3 lines */
-  -webkit-box-orient: vertical;
-  display: box;
-  box-orient: vertical;
-  line-clamp: 3;
-  overflow: hidden;
-  text-overflow: ellipsis; /* Adds "..." at the end if text is truncated */
   line-height: 1.2em;
 }
 
@@ -332,17 +321,6 @@ TextField {
   padding: 3px 5px;
   border-radius: 5px;
   font-size: 11px;
-}
-
-.load-more {
-  margin: 20px auto;
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #00112f;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 .main-news {
