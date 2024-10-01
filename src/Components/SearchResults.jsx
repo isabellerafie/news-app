@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { searchArticles } from "../api"; // Import your searchArticles API
+import { searchArticles } from "../api";
+import {
+  Container,
+  Grid2,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 
 function SearchResults() {
   const location = useLocation();
@@ -40,50 +50,90 @@ function SearchResults() {
   };
 
   return (
-    <div>
+    <Container className="search-results-container">
       {searchResults.length > 0 ? (
-        <div className="search-results-container">
+        <Grid2 container spacing={0}>
           {searchResults.map((article) => (
-            <div
-              key={article.id}
-              className="latest-item"
-              onClick={() => handleResultClick(article.id)}
-            >
-              <img
-                src={article.image || "/src/assets/images.png"}
-                alt={article.title}
-                onError={(e) => (e.target.src = "/src/assets/images.png")}
-              />
-              <div className="latest-details">
-                <h2 className="latest-title">{article.title}</h2>
-                <div className="line">
-                  <p className="latest-date">{article.date}</p>
-                  <h4 className="latest-category">{article.category.title}</h4>
-                </div>
-              </div>
-            </div>
+            <Grid2 item xs={12} sm={6} md={4} key={article.id}>
+              <Card
+                className="latest-item"
+                onClick={() => handleResultClick(article.id)}
+                style={{ cursor: "pointer" }}
+              >
+                <CardMedia
+                  component="img"
+                  src={article.image || "/src/assets/images.png"}
+                  alt={article.title}
+                  onError={(e) => (e.target.src = "/src/assets/images.png")}
+                />
+                <CardContent>
+                  <Typography
+                    variant="h6"
+                    className="latest-title"
+                    sx={{
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                      display: "-webkit-box",
+                      overflow: "hidden",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 2, // Limit to 2 lines
+                    }}
+                  >
+                    {article.title}
+                  </Typography>
+                  <div className="line">
+                    <Typography className="latest-date">
+                      {new Date(article.date).toLocaleDateString()}
+                    </Typography>
+                    <Typography variant="subtitle2" className="latest-category">
+                      {article.category.title}
+                    </Typography>
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid2>
           ))}
-        </div>
+        </Grid2>
       ) : (
-        <p>No results found.</p>
+        <Typography variant="h6" align="center">
+          No results found.
+        </Typography>
       )}
 
       {/* Load More Button */}
       {!noMoreResults && (
         <div className="load-more-wrapper">
-          <button
+          <Button
             className="load-more"
+            variant="contained"
             onClick={handleLoadMore}
             disabled={isLoadingMore}
+            sx={{
+              margin: "20px auto",
+              padding: "10px 20px",
+              fontSize: "16px",
+              color: "#fff",
+              backgroundColor: "#00112f",
+              borderRadius: "5px",
+              display: "flex",
+            }}
           >
-            {isLoadingMore ? "Loading..." : "Load More"}
-          </button>
+            {isLoadingMore ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Load More"
+            )}
+          </Button>
         </div>
       )}
 
       {/* No More Results Message */}
-      {noMoreResults && <p>No more results to load.</p>}
-    </div>
+      {noMoreResults && (
+        <Typography variant="body1" align="center">
+          No more results to load.
+        </Typography>
+      )}
+    </Container>
   );
 }
 
