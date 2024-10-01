@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle } from "../api";
+import {
+  Paper,
+  Typography,
+  Grid2,
+  IconButton,
+  CircularProgress,
+} from "@mui/material";
+import {
+  Share as ShareIcon,
+  Add as AddIcon,
+  Remove as RemoveIcon,
+} from "@mui/icons-material";
 
 function SingleNewsArticle() {
   const { id } = useParams();
@@ -66,36 +78,60 @@ function SingleNewsArticle() {
     <div className="single-news-article">
       {isLoading ? (
         <div className="preloader-overlay">
-          <div className="loading-indicator">
-            <p>Loading...</p>
-          </div>
+          <CircularProgress className="loading-indicator" />
         </div>
       ) : article ? (
-        <div className="article-details">
+        <Paper className="article-details" elevation={3}>
           <img
             src={article.image || "/src/assets/images.png"}
             alt={article.title}
             onError={(e) => (e.target.src = "/src/assets/images.png")}
           />
           <div className="article-info-row">
-            <p className="article-date">{formatDate(article.date)}</p>
-            <div className="article-icons">
-              <i className="fa fa-share" onClick={handleShare}></i>
-              <i className="fa fa-minus" onClick={decreaseFontSize}></i>
-              <i className="fa fa-plus" onClick={increaseFontSize}></i>
-            </div>
-            <p className="category-label">{article.category.title}</p>
+            <Typography className="article-date" sx={{ marginTop: "6px" }}>
+              {formatDate(article.date)}
+            </Typography>
+            <Grid2
+              container
+              justifyContent="flex-end"
+              className="article-icons"
+            >
+              <IconButton onClick={handleShare} aria-label="share">
+                <ShareIcon />
+              </IconButton>
+              <IconButton
+                onClick={decreaseFontSize}
+                aria-label="decrease font size"
+              >
+                <RemoveIcon />
+              </IconButton>
+              <IconButton
+                onClick={increaseFontSize}
+                aria-label="increase font size"
+              >
+                <AddIcon />
+              </IconButton>
+            </Grid2>
+            <Typography className="category-label">
+              {article.category.title}
+            </Typography>
           </div>
           <hr />
-          <h1 className="article-title">{article.title}</h1>
+          <Typography
+            variant="h4"
+            className="article-title"
+            sx={{ fontSize: "1.5em" }}
+          >
+            {article.title}
+          </Typography>
           <div
             className="article-content"
             style={{ fontSize: `${fontSize}px` }}
-            dangerouslySetInnerHTML={{ __html: article.content }}
+            dangerouslySetInnerHTML={{ __html: article.content }} //ta ma ytla3lna html tags bi aleb l text
           />
-        </div>
+        </Paper>
       ) : (
-        <p>No article found</p>
+        <Typography>No article found</Typography>
       )}
     </div>
   );

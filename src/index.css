@@ -459,30 +459,21 @@ TextField {
 
 .single-news-article {
   position: static;
-  margin-top: 80px;
+  margin-top: 35px;
   object-fit: cover;
-  gap: 0;
-  left: 0;
-  margin-left: 0;
 }
 
 .single-news-article img {
   width: 100vw;
-  height: 25vh;
+  object-fit: contain;
   margin-left: -32px;
   margin-right: 0;
-}
-
-.article-details {
-  margin-top: 0;
 }
 
 .article-info-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: -20px;
-  padding: 0 5px;
+  margin-bottom: 15px;
 }
 
 .article-date {
@@ -490,22 +481,10 @@ TextField {
   color: #acacac;
 }
 
-.article-icons {
-  display: flex;
-  gap: 10px;
-}
-
-.article-icons i {
-  font-size: 1.2em;
-  color: #d1d1d1;
-  cursor: pointer;
-}
-
 .category-label {
   color: #ffffff;
   background-color: #00112f;
-  padding: 3px 5px;
-  font-size: 11px;
+  padding: 0 5px;
 }
 
 hr {
