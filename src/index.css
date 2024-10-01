@@ -244,7 +244,7 @@ TextField {
 }
 
 .category {
-  margin-bottom: 30px;
+  margin-bottom: 3px;
 }
 
 .name {
@@ -253,40 +253,29 @@ TextField {
   padding: 3px 5px;
   font-size: 11px;
 }
-.news-items {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 15px;
-}
 
 .news-item {
-  background-color: #f8f8f8;
+  background-color: #999191;
   width: 100%;
-}
-
-.news-image {
-  width: 100%;
-  height: 60%;
+  margin-top: 10px;
 }
 
 .news-info {
-  margin-top: 5px;
+  margin-top: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
 .news-date {
-  font-size: 14px;
   color: #2e2c2c;
 }
 
 .news-title {
   font-size: 13px;
-  color: #333;
-  font-weight: bold;
+  color: #000000;
   margin-top: 5px;
+  text-align: right;
 }
 
 .latest-list {
