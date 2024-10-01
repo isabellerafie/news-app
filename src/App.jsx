@@ -14,41 +14,38 @@ import store from "./store"; // Import the store
 
 function App() {
   const [activeCategory, setActiveCategory] = useState("");
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   return (
-    <Provider store={store}>
-      <Router>
-        <Header setActiveCategory={setActiveCategory} />
-
-        <Routes>
-          {/* Home Route */}
-          <Route
-            path="/"
-            element={
-              <>
-                <NewsSliderComponent />
-                <CategoryList />
-              </>
-            }
+    <div className={`app-container ${isSidebarVisible ? "shift-left" : ""}`}>
+      <Provider store={store}>
+        <Router>
+          <Header
+            setActiveCategory={setActiveCategory}
+            isSidebarVisible={isSidebarVisible}
+            setIsSidebarVisible={setIsSidebarVisible}
           />
-
-          {/* Latest News Route */}
-          <Route path="/latest" element={<LatestNews />} />
-
-          {/* Specific Category Route */}
-          <Route
-            path="/category/:id"
-            element={<SpecificCategory activeCategory={activeCategory} />}
-          />
-
-          {/* Single News Article Route */}
-          <Route path="/news-details/:id" element={<SingleNewsArticle />} />
-
-          {/* Search Results */}
-          <Route path="/search-results" element={<SearchResults />} />
-        </Routes>
-      </Router>
-    </Provider>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <NewsSliderComponent />
+                  <CategoryList />
+                </>
+              }
+            />
+            <Route path="/latest" element={<LatestNews />} />
+            <Route
+              path="/category/:id"
+              element={<SpecificCategory activeCategory={activeCategory} />}
+            />
+            <Route path="/news-details/:id" element={<SingleNewsArticle />} />
+            <Route path="/search-results" element={<SearchResults />} />
+          </Routes>
+        </Router>
+      </Provider>
+    </div>
   );
 }
 

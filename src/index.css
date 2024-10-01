@@ -19,7 +19,7 @@ AppBar {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: fit-content;
   transition: backdrop-filter 0.3s ease;
   width: 100vw;
@@ -28,17 +28,14 @@ AppBar {
 .header__container {
   display: flex;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 30px;
   align-items: center;
   margin-top: 20px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .header__logo img {
   height: 40px;
-}
-
-.fas {
-  cursor: pointer;
 }
 
 .button-container button {
@@ -53,17 +50,6 @@ AppBar {
 .button-container.margin {
   margin-right: 190px;
 }
-
-/* .button-container button::after {
-  content: "";
-  display: block;
-  width: 0;
-  height: 2px;
-  background: #ffffff;
-  position: absolute;
-  left: 0;
-  transition: width 0.3s;
-} */
 
 .button-container button:hover::after {
   width: 100%;
@@ -582,4 +568,51 @@ hr {
   font-weight: bold;
   font-size: 1em;
   text-align: right;
+}
+
+/* Shift the content to the left when the drawer is open */
+.shift-left {
+  transform: translateX(-50px);
+}
+
+.sidebar-content {
+  width: 150px;
+  text-align: center;
+}
+
+.sidebar-content ul {
+  list-style-type: none;
+  padding: 10px;
+}
+
+.sidebar-content ul li {
+  margin: 10px 0;
+}
+
+.sidebar-content ul li a {
+  color: #ffffff;
+  text-decoration: none; /* Remove underlines */
+  font-size: 18px;
+}
+
+.sidebar-content ul li a:hover {
+  text-decoration: underline;
+}
+
+.app-container {
+  transition: margin-right 0.3s ease;
+}
+
+.app-container.shift-left {
+  margin-right: 240px;
+}
+
+.header__container,
+.button-container {
+  transition: margin-right 0.3s ease;
+}
+
+.header__container.shift-left,
+.button-container.shift-left {
+  margin-right: 240px;
 }

@@ -112,14 +112,17 @@ function Header({ setActiveCategory }) {
 
   return (
     <>
-      <AppBar //To replace the header and create a top navigation bar
+      <AppBar //to replace the header
         className={`header ${isSearchVisible ? "blur" : ""}`}
-        sx={{ backgroundColor: "#00112f", transition: "margin 0.3s" }}
-        style={{ marginLeft: isSidebarVisible ? 250 : 0 }} // Push content to the left
+        sx={{ backgroundColor: "#00112f" }}
       >
-        <div className="header__container">
+        <div
+          className={`header__container ${
+            isSidebarVisible ? "shift-left" : ""
+          }`}
+        >
           {isOnSingleArticlePage ? (
-            <IconButton
+            <IconButton //for icons
               onClick={() => navigate(-1)}
               title="Back"
               color="inherit"
@@ -137,10 +140,10 @@ function Header({ setActiveCategory }) {
           </div>
 
           <IconButton onClick={toggleSidebar} color="inherit">
-            {isSidebarVisible ? <CloseIcon /> : <MenuIcon />}
+            <MenuIcon />
           </IconButton>
         </div>
-        <br />
+
         {!isOnSingleArticlePage && (
           <div
             className={`button-container ${isSidebarVisible ? "margin" : ""}`}
@@ -170,7 +173,7 @@ function Header({ setActiveCategory }) {
             <CloseIcon />
           </IconButton>
 
-          <TextField
+          <TextField //input field for search
             variant="outlined"
             placeholder="...اكتب شيئا"
             className="search-input"
@@ -180,8 +183,8 @@ function Header({ setActiveCategory }) {
             slotProps={{
               htmlInput: {
                 style: {
-                  backgroundColor: "white", // Set background color to white
-                  textAlign: "right", // Set text alignment to right
+                  backgroundColor: "white",
+                  textAlign: "right",
                 },
               },
             }}
@@ -197,32 +200,37 @@ function Header({ setActiveCategory }) {
         </div>
       )}
 
-      <Drawer
-        className="drawer"
-        anchor="right"
-        open={isSidebarVisible}
-        onClose={toggleSidebar}
-        variant="persistent"
-      >
-        <div className="sidebar-content" style={{ width: 250 }}>
-          <IconButton onClick={toggleSidebar} color="inherit">
-            <CloseIcon />
-          </IconButton>
-          <ul>
-            {filteredCategories.length > 0 ? (
-              filteredCategories.map((item) => (
-                <li key={item.id}>
-                  <a href="#" onClick={() => handleCategoryClick(item.id)}>
-                    {item.title}
-                  </a>
-                </li>
-              ))
-            ) : (
-              <li>No categories found</li>
-            )}
-          </ul>
-        </div>
-      </Drawer>
+      {!isLoading && (
+        <>
+          <Drawer //sidebar
+            anchor="right"
+            open={isSidebarVisible}
+            onClose={toggleSidebar}
+            PaperProps={{
+              sx: { backgroundColor: "#00112f" },
+            }}
+          >
+            <div className="sidebar-content">
+              <IconButton onClick={toggleSidebar} color="inherit">
+                <CloseIcon />
+              </IconButton>
+              <ul>
+                {filteredCategories.length > 0 ? (
+                  filteredCategories.map((item) => (
+                    <li key={item.id}>
+                      <a href="#" onClick={() => handleCategoryClick(item.id)}>
+                        {item.title}
+                      </a>
+                    </li>
+                  ))
+                ) : (
+                  <li>No categories found</li>
+                )}
+              </ul>
+            </div>
+          </Drawer>
+        </>
+      )}
     </>
   );
 }
