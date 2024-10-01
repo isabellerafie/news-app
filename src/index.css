@@ -163,19 +163,17 @@ TextField {
 }
 
 .news-slider-container {
-  margin-top: 112px;
+  margin-top: 88px;
   margin-left: -32px;
   margin-right: 0;
-  width: 100%;
+  width: 100vw;
   position: static;
 }
 
 .news-slider {
-  overflow-x: scroll;
   overflow-y: hidden;
   width: 100vw;
   white-space: nowrap;
-  scroll-snap-type: x mandatory;
   display: flex;
   align-items: center;
   height: 300px;
@@ -215,26 +213,18 @@ TextField {
   background-color: #ffffff;
   width: fit-content;
   position: absolute;
-  right: 15px;
-  font-size: 20px;
+  right: 28px;
+  font-size: 15px;
 }
 
 .news-slogan {
-  /* font-weight: bold; */
+  font-weight: bold;
   color: #ffffff;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   margin-top: 190px;
   white-space: normal;
   overflow-wrap: break-word;
-}
-
-.news-slider::-webkit-scrollbar {
-  width: 2px;
-  background-color: #acacac;
-}
-
-.news-slider::-webkit-scrollbar-thumb {
-  background-color: #00112f;
+  margin-right: 17px;
 }
 
 .categories-container {
