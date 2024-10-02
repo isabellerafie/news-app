@@ -6,9 +6,10 @@ import {
   CircularProgress,
   Grid,
   Card,
-  CardMedia,
   CardContent,
 } from "@mui/material";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 function SpecificCategory({ activeCategory }) {
   const [articles, setArticles] = useState([]);
@@ -51,12 +52,15 @@ function SpecificCategory({ activeCategory }) {
                 className="main-news"
                 onClick={() => handleArticleClick(articles[0].id)}
               >
-                <CardMedia
-                  component="img"
-                  src={articles[0].image || "/src/assets/images.png"}
+                <LazyLoadImage
                   alt={articles[0].title}
+                  effect="blur"
+                  src={articles[0].image || "/src/assets/images.png"}
                   className="main-news-image"
                   onError={(e) => (e.target.src = "/src/assets/images.png")}
+                  height="300px"
+                  width="100%"
+                  style={{ objectFit: "cover" }}
                 />
                 <CardContent>
                   <div className="main-news-info">
@@ -91,12 +95,15 @@ function SpecificCategory({ activeCategory }) {
                     className="news-item"
                     onClick={() => handleArticleClick(article.id)}
                   >
-                    <CardMedia
-                      component="img"
-                      src={article.image || "/src/assets/images.png"}
+                    <LazyLoadImage
                       alt={article.title}
+                      effect="blur"
+                      src={article.image || "/src/assets/images.png"}
                       className="news-item-image"
                       onError={(e) => (e.target.src = "/src/assets/images.png")}
+                      height="200px"
+                      width="100%"
+                      style={{ objectFit: "cover" }}
                     />
                     <CardContent>
                       <div className="news-item-info">

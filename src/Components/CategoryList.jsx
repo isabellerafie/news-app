@@ -5,12 +5,13 @@ import {
   Container,
   Grid2,
   Card,
-  CardMedia,
   CardContent,
   Typography,
   CircularProgress,
   Box,
 } from "@mui/material";
+import { LazyLoadImage } from "react-lazy-load-image-component"; // Import LazyLoadImage component
+import "react-lazy-load-image-component/src/effects/blur.css"; // Optional: adds a blur effect when loading
 
 function CategoryList() {
   const [categories, setCategories] = useState([]);
@@ -48,14 +49,13 @@ function CategoryList() {
 
   if (isLoading) {
     return (
-      <Box //to group different parts
+      <Box
         display="flex"
         justifyContent="center"
         alignItems="center"
         height="100vh"
       >
-        <CircularProgress />{" "}
-        {/* loading indicator while data is being fetched */}
+        <CircularProgress />
       </Box>
     );
   }
@@ -66,11 +66,7 @@ function CategoryList() {
 
   return (
     <Container className="categories-container">
-      {" "}
-      {/* to wrap the entire component */}
       <Grid2 container spacing={4}>
-        {" "}
-        {/* To layout the categories and news items  */}
         {categories.map((category) => (
           <Grid2
             item
@@ -90,26 +86,24 @@ function CategoryList() {
             <Grid2 container spacing={2}>
               {articles[category.id]?.map((item) => (
                 <Grid2 item xs={12} key={item.id} className="news-item">
-                  <Card //To display each news item.
+                  <Card
                     onClick={() => handleClick(item.id)}
                     className="news-card"
                     style={{
                       display: "flex",
                       flexDirection: "column",
                       height: "100%",
-                    }} // ta ykuno kellon nafs l toul
+                    }}
                   >
-                    <CardMedia //For displaying the news images.
-                      component="img"
-                      image={item.image || "/src/assets/images.png"}
+                    {/* Lazy load images */}
+                    <LazyLoadImage
                       alt={item.title}
-                      className="news-image"
-                      style={{ height: "100px" }} //kl l suwar aandon nafs l toul
-                      onError={(e) => (e.target.src = "/src/assets/images.png")}
+                      effect="blur" // Optional: adds a blur effect while loading
+                      src={item.image || "/src/assets/images.png"} // Fallback image
+                      height="100px"
+                      onError={(e) => (e.target.src = "/src/assets/images.png")} // Handle image load errors
                     />
                     <CardContent>
-                      {" "}
-                      {/* For displaying the article details */}
                       <div
                         className="news-info"
                         style={{

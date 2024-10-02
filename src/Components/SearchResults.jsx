@@ -5,12 +5,13 @@ import {
   Container,
   Grid2,
   Card,
-  CardMedia,
   CardContent,
   Typography,
   Button,
   CircularProgress,
 } from "@mui/material";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 function SearchResults() {
   const location = useLocation();
@@ -34,9 +35,25 @@ function SearchResults() {
     searchArticles(searchQuery, page) // Fetch more results with the current page
       .then((response) => {
         const newResults = response.data.data;
+
         if (newResults.length > 0) {
-          setSearchResults((prevResults) => [...prevResults, ...newResults]); // Append new results to the existing ones
-          setPage((prevPage) => prevPage + 1); // Increment the page for the next load
+          // Filter out any articles that are already in the searchResults
+          const filteredResults = newResults.filter(
+            (newArticle) =>
+              !searchResults.some(
+                (existingArticle) => existingArticle.id === newArticle.id
+              )
+          );
+
+          if (filteredResults.length > 0) {
+            setSearchResults((prevResults) => [
+              ...prevResults,
+              ...filteredResults,
+            ]); // Append only new unique results
+            setPage((prevPage) => prevPage + 1); // Increment the page for the next load
+          } else {
+            setNoMoreResults(true); // If no new unique results, set no more results
+          }
         } else {
           setNoMoreResults(true); // No more results to load
         }
@@ -53,18 +70,25 @@ function SearchResults() {
     <Container className="search-results-container">
       {searchResults.length > 0 ? (
         <Grid2 container spacing={0}>
-          {searchResults.map((article) => (
-            <Grid2 item xs={12} sm={6} md={4} key={article.id}>
+          {searchResults.map((article, index) => (
+            <Grid2 item xs={12} sm={6} md={4} key={`${article.id}-${index}`}>
               <Card
                 className="latest-item"
                 onClick={() => handleResultClick(article.id)}
                 style={{ cursor: "pointer" }}
               >
-                <CardMedia
-                  component="img"
-                  src={article.image || "/src/assets/images.png"}
+                <LazyLoadImage
                   alt={article.title}
+                  effect="blur"
+                  src={article.image || "/src/assets/images.png"}
+                  height="200px"
                   onError={(e) => (e.target.src = "/src/assets/images.png")}
+                  style={{
+                    width: "100%",
+                    objectFit: "cover",
+                    height: "fit-content",
+                    marginTop: "40px",
+                  }}
                 />
                 <CardContent>
                   <Typography
@@ -76,7 +100,7 @@ function SearchResults() {
                       display: "-webkit-box",
                       overflow: "hidden",
                       WebkitBoxOrient: "vertical",
-                      WebkitLineClamp: 2, // Limit to 2 lines
+                      WebkitLineClamp: 2,
                     }}
                   >
                     {article.title}

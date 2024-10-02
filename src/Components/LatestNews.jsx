@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-//useSelector btkhallini a3mol access 3al state mn l store
-//useDispatch btkhallini eb3at actions to the Redux Store to modify the state
 import { useNavigate } from "react-router-dom";
 import { getLatestNews } from "../api";
-import { setLatestNews, setStatus, setError } from "../reducers/newsReducer"; //used to update the Redux store
+import { setLatestNews, setStatus, setError } from "../reducers/newsReducer";
 import {
   Grid2,
   Card,
-  CardMedia,
   CardContent,
   Typography,
   Button,
   CircularProgress,
 } from "@mui/material";
+import { LazyLoadImage } from "react-lazy-load-image-component"; // Import LazyLoadImage component
+import "react-lazy-load-image-component/src/effects/blur.css"; // Optional: adds a blur effect when loading
 
 function LatestNews() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const latestNews = useSelector((state) => state.news.latestNews); //array of latest news
+  const latestNews = useSelector((state) => state.news.latestNews);
   const status = useSelector((state) => state.news.status);
   const error = useSelector((state) => state.news.error);
   const [pageNum, setPageNum] = useState(1);
@@ -27,22 +26,25 @@ function LatestNews() {
 
   useEffect(() => {
     if (pageNum === 1 && latestNews.length === 0) {
-      dispatch(setStatus("loading")); // Display the preloader
+      dispatch(setStatus("loading"));
     }
 
-    getLatestNews(pageNum) // Fetch latest news for that specific page
+    if (!hasMore && pageNum > 1) {
+      return;
+    }
+
+    getLatestNews(pageNum)
       .then((response) => {
         const newNews = response.data.data;
         if (newNews.length === 0) {
-          setHasMore(false); // No more news to load
+          setHasMore(false);
         } else {
-          // Combine existing news and new news
           const combinedNews = [...latestNews, ...newNews];
           const uniqueNews = Array.from(
             new Set(combinedNews.map((item) => item.id))
           ).map((id) => combinedNews.find((item) => item.id === id));
 
-          dispatch(setLatestNews(uniqueNews)); // Set unique news
+          dispatch(setLatestNews(uniqueNews));
         }
         dispatch(setStatus("succeeded"));
       })
@@ -50,14 +52,14 @@ function LatestNews() {
         dispatch(setError(err.message));
         dispatch(setStatus("failed"));
       });
-  }, [dispatch, pageNum]);
+  }, [dispatch, pageNum, latestNews, hasMore]);
 
   const handleClick = (id) => {
     navigate(`/news-details/${id}`);
   };
 
   const handleLoadMore = (event) => {
-    event.preventDefault(); //cz kenet 3am ta3mol refresh lal page before showing new news
+    event.preventDefault();
     setPageNum((prevPageNum) => prevPageNum + 1);
   };
 
@@ -71,7 +73,7 @@ function LatestNews() {
           height: "100vh",
         }}
       >
-        <CircularProgress /> {/* Display loading spinner */}
+        <CircularProgress />
       </div>
     );
   }
@@ -90,12 +92,13 @@ function LatestNews() {
               onClick={() => handleClick(latestItem.id)}
               style={{ width: "100%" }}
             >
-              <CardMedia
-                component="img"
-                src={latestItem.image || "/src/assets/images.png"}
+              {/* Lazy load images */}
+              <LazyLoadImage
                 alt={latestItem.title}
-                style={{ height: "100px" }}
-                onError={(e) => (e.target.src = "/src/assets/images.png")}
+                effect="blur" // Optional: adds a blur effect during load
+                src={latestItem.image || "/src/assets/images.png"} // Fallback image
+                height="100px"
+                onError={(e) => (e.target.src = "/src/assets/images.png")} // Handle error by setting a fallback image
               />
               <CardContent className="latest-details">
                 <Typography
@@ -106,7 +109,7 @@ function LatestNews() {
                     display: "-webkit-box",
                     overflow: "hidden",
                     WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 3, // Limit to 3 lines
+                    WebkitLineClamp: 3,
                   }}
                   className="latest-title"
                 >

@@ -252,6 +252,9 @@ TextField {
   background-color: #00112f;
   padding: 3px 5px;
   font-size: 11px;
+  text-align: right;
+  width: fit-content;
+  height: fit-content;
 }
 
 .news-item {
@@ -269,6 +272,9 @@ TextField {
 
 .news-date {
   color: #2e2c2c;
+  width: 100%;
+  text-align: left;
+  font-size: smaller;
 }
 
 .news-title {
