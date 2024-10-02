@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getArticlesByCategory } from "../api";
+import {
+  Typography,
+  CircularProgress,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+} from "@mui/material";
 
 function SpecificCategory({ activeCategory }) {
   const [articles, setArticles] = useState([]);
@@ -29,54 +37,85 @@ function SpecificCategory({ activeCategory }) {
 
   return (
     <div className="specific-category-page">
-      <h1>{activeCategory}</h1>
+      <Typography variant="h4">{activeCategory}</Typography>
       {isLoading ? ( // Show preloader while loading
         <div className="preloader">
-          <p>Loading articles...</p>
+          <CircularProgress />
         </div>
       ) : articles.length > 0 ? (
         <>
-          <div
-            className="main-news"
-            onClick={() => handleArticleClick(articles[0].id)}
-          >
-            <div className="main-news-info">
-              <p className="snews-date">
-                🕘 {new Date(articles[0].date).toLocaleTimeString()}
-              </p>
-              <p className="snews-category">{articles[0].category.title}</p>
-            </div>
-            <img
-              src={articles[0].image || "/src/assets/images.png"}
-              alt={articles[0].title}
-              className="main-news-image"
-              onError={(e) => (e.target.src = "/src/assets/images.png")}
-            />
-            <h2 className="main-news-title">{articles[0].title}</h2>
-          </div>
-          <div className="other-news">
-            {articles.slice(1).map((article) => (
-              <div
-                key={article.id}
-                className="news-item"
-                onClick={() => handleArticleClick(article.id)}
+          <Grid container spacing={2}>
+            {/* First news on its own */}
+            <Grid item xs={12}>
+              <Card
+                className="main-news"
+                onClick={() => handleArticleClick(articles[0].id)}
               >
-                <img
-                  src={article.image || "/src/assets/images.png"}
-                  alt={article.title}
-                  className="news-item-image"
+                <CardMedia
+                  component="img"
+                  src={articles[0].image || "/src/assets/images.png"}
+                  alt={articles[0].title}
+                  className="main-news-image"
                   onError={(e) => (e.target.src = "/src/assets/images.png")}
                 />
-                <div className="news-item-info">
-                  <p className="news-item-date">
-                    🕘 {new Date(article.date).toLocaleDateString()}
-                  </p>
-                  <p className="news-item-category">{article.category.title}</p>
-                </div>
-                <h3 className="news-item-title">{article.title}</h3>
-              </div>
-            ))}
-          </div>
+                <CardContent>
+                  <div className="main-news-info">
+                    <Typography className="snews-date">
+                      🕘 {new Date(articles[0].date).toLocaleTimeString()}
+                    </Typography>
+                    <Typography className="snews-category">
+                      {articles[0].category.title}
+                    </Typography>
+                  </div>
+                  <Typography
+                    variant="h5"
+                    className="main-news-title"
+                    sx={{
+                      marginTop: "220px",
+                      color: "#ffffff",
+                      textAlign: "center",
+                      fontSize: "0.8em",
+                    }}
+                  >
+                    {articles[0].title}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            {/* Other news in rows of two */}
+            <Grid container spacing={2}>
+              {articles.slice(1).map((article) => (
+                <Grid item xs={6} key={article.id}>
+                  <Card
+                    className="news-item"
+                    onClick={() => handleArticleClick(article.id)}
+                  >
+                    <CardMedia
+                      component="img"
+                      src={article.image || "/src/assets/images.png"}
+                      alt={article.title}
+                      className="news-item-image"
+                      onError={(e) => (e.target.src = "/src/assets/images.png")}
+                    />
+                    <CardContent>
+                      <div className="news-item-info">
+                        <Typography className="news-item-date">
+                          🕘 {new Date(article.date).toLocaleDateString()}
+                        </Typography>
+                        <Typography className="news-item-category">
+                          {article.category.title}
+                        </Typography>
+                      </div>
+                      <Typography variant="h6" className="news-item-title">
+                        {article.title}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
         </>
       ) : (
         <p className="no-news">No news available</p>
