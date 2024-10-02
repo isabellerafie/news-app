@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getCategories, searchArticles } from "../api";
-import { AppBar, Button, IconButton, TextField } from "@mui/material";
+import { AppBar, Button, IconButton, TextField, Alert } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
@@ -17,6 +17,7 @@ function Header({ setActiveCategory }) {
   const [searchResults, setSearchResults] = useState([]);
   const [activePage, setActivePage] = useState("home");
   const [isLoading, setIsLoading] = useState(false);
+  const [timeoutError, setTimeoutError] = useState(false); // Add state for timeout error
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,6 +45,16 @@ function Header({ setActiveCategory }) {
       setActivePage("");
     }
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (timeoutError) {
+      const timer = setTimeout(() => {
+        setTimeoutError(false); // Clear the alert after 3 seconds
+      }, 3000);
+
+      return () => clearTimeout(timer); // Cleanup the timer when component unmounts
+    }
+  }, [timeoutError]);
 
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
@@ -81,7 +92,11 @@ function Header({ setActiveCategory }) {
           });
         })
         .catch((error) => {
-          console.error("Error searching articles:", error);
+          if (error.code === "ECONNABORTED") {
+            setTimeoutError(true); // Set error state on timeout
+          } else {
+            console.error("Error searching articles:", error);
+          }
         })
         .finally(() => {
           setIsLoading(false);
@@ -109,9 +124,25 @@ function Header({ setActiveCategory }) {
     : [];
 
   const isOnSingleArticlePage = location.pathname.startsWith("/news-details");
+  const isOnSearchResultsPage = location.pathname === "/search-results"; // Check if on search results page
 
   return (
     <>
+      {timeoutError && ( // Conditionally render the timeout alert
+        <Alert
+          severity="error"
+          onClose={() => setTimeoutError(false)} // Close alert on click
+          sx={{
+            position: "fixed",
+            top: "0",
+            width: "100%",
+            zIndex: 2000, // Ensure the alert is on top
+          }}
+        >
+          Search request timed out. Please try again.
+        </Alert>
+      )}
+
       <AppBar //to replace the header
         className={`header ${isSearchVisible ? "blur" : ""}`}
         sx={{ backgroundColor: "#00112f" }}
@@ -121,7 +152,7 @@ function Header({ setActiveCategory }) {
             isSidebarVisible ? "shift-left" : ""
           }`}
         >
-          {isOnSingleArticlePage ? (
+          {isOnSingleArticlePage || isOnSearchResultsPage ? ( // Show back button if on a single article or search results page
             <IconButton //for icons
               onClick={() => navigate(-1)}
               title="Back"
@@ -144,24 +175,25 @@ function Header({ setActiveCategory }) {
           </IconButton>
         </div>
 
-        {!isOnSingleArticlePage && (
-          <div
-            className={`button-container ${isSidebarVisible ? "margin" : ""}`}
-          >
-            <Button
-              className={`home ${activePage === "home" ? "active" : ""}`}
-              onClick={handleHomeClick}
+        {!isOnSingleArticlePage &&
+          !isOnSearchResultsPage && ( // Hide buttons on article or search results page
+            <div
+              className={`button-container ${isSidebarVisible ? "margin" : ""}`}
             >
-              الرئيسية
-            </Button>
-            <Button
-              className={`latest ${activePage === "latest" ? "active" : ""}`}
-              onClick={handleLatestClick}
-            >
-              آخر الأخبار
-            </Button>
-          </div>
-        )}
+              <Button
+                className={`home ${activePage === "home" ? "active" : ""}`}
+                onClick={handleHomeClick}
+              >
+                الرئيسية
+              </Button>
+              <Button
+                className={`latest ${activePage === "latest" ? "active" : ""}`}
+                onClick={handleLatestClick}
+              >
+                آخر الأخبار
+              </Button>
+            </div>
+          )}
       </AppBar>
 
       {isSearchVisible && (
