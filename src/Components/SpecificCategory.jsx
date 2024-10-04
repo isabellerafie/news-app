@@ -55,9 +55,9 @@ function SpecificCategory({ activeCategory }) {
                 <LazyLoadImage
                   alt={articles[0].title}
                   effect="blur"
-                  src={articles[0].image || "/src/assets/images.png"}
+                  src={articles[0].image || "images.png"}
                   className="main-news-image"
-                  onError={(e) => (e.target.src = "/src/assets/images.png")}
+                  onError={(e) => (e.target.src = "images.png")}
                   height="300px"
                   width="100%"
                   style={{ objectFit: "cover" }}
@@ -98,9 +98,9 @@ function SpecificCategory({ activeCategory }) {
                     <LazyLoadImage
                       alt={article.title}
                       effect="blur"
-                      src={article.image || "/src/assets/images.png"}
+                      src={article.image || "images.png"}
                       className="news-item-image"
-                      onError={(e) => (e.target.src = "/src/assets/images.png")}
+                      onError={(e) => (e.target.src = "images.png")}
                       height="200px"
                       width="100%"
                       style={{ objectFit: "cover" }}

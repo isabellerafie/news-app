@@ -167,7 +167,7 @@ function Header({ setActiveCategory }) {
           )}
 
           <div className="header__logo">
-            <img src="/src/assets/sync-logo.png" alt="Sync Logo" />
+            <img src="sync-logo.png" alt="Sync Logo" />
           </div>
 
           <IconButton onClick={toggleSidebar} color="inherit">

@@ -83,9 +83,9 @@ function SingleNewsArticle() {
       ) : article ? (
         <Paper className="article-details" elevation={3}>
           <img
-            src={article.image || "/src/assets/images.png"}
+            src={article.image || "images.png"}
             alt={article.title}
-            onError={(e) => (e.target.src = "/src/assets/images.png")}
+            onError={(e) => (e.target.src = "images.png")}
           />
           <div className="article-info-row">
             <Typography className="article-date" sx={{ marginTop: "6px" }}>
