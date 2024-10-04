@@ -55,10 +55,10 @@ function SpecificCategory({ activeCategory }) {
                 <LazyLoadImage
                   alt={articles[0].title}
                   effect="blur"
-                  src={articles[0].image || "images.png"}
+                  src={articles[0].image || "/images.png"}
                   className="main-news-image"
-                  onError={(e) => (e.target.src = "images.png")}
-                  height="300px"
+                  onError={(e) => (e.target.src = "/images.png")}
+                  height="250px"
                   width="100%"
                   style={{ objectFit: "cover" }}
                 />
@@ -75,10 +75,11 @@ function SpecificCategory({ activeCategory }) {
                     variant="h5"
                     className="main-news-title"
                     sx={{
-                      marginTop: "220px",
+                      marginTop: "280px",
                       color: "#ffffff",
                       textAlign: "center",
                       fontSize: "0.8em",
+                      position: "relative",
                     }}
                   >
                     {articles[0].title}
@@ -98,9 +99,9 @@ function SpecificCategory({ activeCategory }) {
                     <LazyLoadImage
                       alt={article.title}
                       effect="blur"
-                      src={article.image || "images.png"}
+                      src={article.image || "/images.png"}
                       className="news-item-image"
-                      onError={(e) => (e.target.src = "images.png")}
+                      onError={(e) => (e.target.src = "/images.png")}
                       height="200px"
                       width="100%"
                       style={{ objectFit: "cover" }}

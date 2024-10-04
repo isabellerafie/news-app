@@ -96,9 +96,9 @@ function LatestNews() {
               <LazyLoadImage
                 alt={latestItem.title}
                 effect="blur" // Optional: adds a blur effect during load
-                src={latestItem.image || "images.png"} // Fallback image
+                src={latestItem.image || "/images.png"} // Fallback image
                 height="100px"
-                onError={(e) => (e.target.src = "images.png")} // Handle error by setting a fallback image
+                onError={(e) => (e.target.src = "/images.png")} // Handle error by setting a fallback image
               />
               <CardContent className="latest-details">
                 <Typography

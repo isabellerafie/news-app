@@ -348,6 +348,7 @@ TextField {
   justify-content: space-between;
   width: 100%;
   margin-top: -300px;
+  position: relative;
 }
 
 .main-news-image {

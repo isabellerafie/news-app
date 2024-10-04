@@ -55,7 +55,7 @@ function NewsSlider() {
             onClick={() => handleClick(newsItem.id)}
           >
             <img
-              src={newsItem.image || "images.png"}
+              src={newsItem.image || "/images.png"}
               alt={newsItem.category.title}
             />
             <div className="news-details">

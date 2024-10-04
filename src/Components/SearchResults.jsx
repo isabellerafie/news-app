@@ -80,9 +80,9 @@ function SearchResults() {
                 <LazyLoadImage
                   alt={article.title}
                   effect="blur"
-                  src={article.image || "images.png"}
+                  src={article.image || "/images.png"}
                   height="200px"
-                  onError={(e) => (e.target.src = "images.png")}
+                  onError={(e) => (e.target.src = "/images.png")}
                   style={{
                     width: "100%",
                     objectFit: "cover",

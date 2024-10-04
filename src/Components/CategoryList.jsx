@@ -99,9 +99,9 @@ function CategoryList() {
                     <LazyLoadImage
                       alt={item.title}
                       effect="blur" // Optional: adds a blur effect while loading
-                      src={item.image || "images.png"} // Fallback image
+                      src={item.image || "/images.png"} // Fallback image
                       height="100px"
-                      onError={(e) => (e.target.src = "images.png")} // Handle image load errors
+                      onError={(e) => (e.target.src = "/images.png")} // Handle image load errors
                     />
                     <CardContent>
                       <div
