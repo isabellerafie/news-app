@@ -75,7 +75,7 @@ function SpecificCategory({ activeCategory }) {
                     variant="h5"
                     className="main-news-title"
                     sx={{
-                      marginTop: "280px",
+                      marginTop: "220px",
                       color: "#ffffff",
                       textAlign: "center",
                       fontSize: "0.8em",
@@ -115,7 +115,17 @@ function SpecificCategory({ activeCategory }) {
                           {article.category.title}
                         </Typography>
                       </div>
-                      <Typography variant="h6" className="news-item-title">
+                      <Typography
+                        variant="h6"
+                        className="news-item-title"
+                        sx={{
+                          fontSize: "0.8em",
+                          display: "-webkit-box",
+                          overflow: "hidden",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 1, // Limit to 1 line
+                        }}
+                      >
                         {article.title}
                       </Typography>
                     </CardContent>
