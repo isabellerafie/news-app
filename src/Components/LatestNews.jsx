@@ -90,7 +90,6 @@ function LatestNews() {
             <Card
               className="latest-item"
               onClick={() => handleClick(latestItem.id)}
-              style={{ width: "100%" }}
             >
               {/* Lazy load images */}
               <LazyLoadImage

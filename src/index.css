@@ -258,7 +258,6 @@ TextField {
 }
 
 .news-item {
-  background-color: #e2d9d9;
   width: auto;
   margin-top: 10px;
   height: auto;
@@ -298,12 +297,14 @@ TextField {
   align-items: center;
   padding: 10px;
   height: 125px;
+  width: 80vw;
 }
 
 .latest-item img {
   width: 100px;
   height: 50px;
   object-fit: cover;
+  margin-top: 20px;
 }
 
 .latest-details {
@@ -392,16 +393,15 @@ TextField {
 
 .news-item-date {
   text-align: left;
-  font-size: smaller;
+  font-size: x-small;
   width: 100%;
 }
 
 .news-item-category {
   color: #ffffff;
   background-color: #00112f;
-  padding: 3px 5px;
-  font-size: 11px;
-  width: fit-content;
+  padding: 0;
+  width: -webkit-fill-available;
   height: fit-content;
 }
 

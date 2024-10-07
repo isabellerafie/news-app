@@ -95,6 +95,7 @@ function SpecificCategory({ activeCategory }) {
                   <Card
                     className="news-item"
                     onClick={() => handleArticleClick(article.id)}
+                    sx={{ paddingLeft: "0" }}
                   >
                     <LazyLoadImage
                       alt={article.title}
@@ -108,9 +109,9 @@ function SpecificCategory({ activeCategory }) {
                     />
                     <CardContent>
                       <div className="news-item-info">
-                        <Typography className="news-item-date">
-                          🕘 {new Date(article.date).toLocaleDateString()}
-                        </Typography>
+                        <div className="news-item-date">
+                          🕘{new Date(article.date).toLocaleDateString()}
+                        </div>
                         <Typography className="news-item-category">
                           {article.category.title}
                         </Typography>

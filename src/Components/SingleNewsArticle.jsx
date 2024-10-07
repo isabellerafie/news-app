@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getSingleArticle } from "../api";
-import {
-  Paper,
-  Typography,
-  Grid2,
-  IconButton,
-  CircularProgress,
-} from "@mui/material";
+import { Typography, Grid2, IconButton, CircularProgress } from "@mui/material";
 import {
   Share as ShareIcon,
   Add as AddIcon,
@@ -81,7 +75,7 @@ function SingleNewsArticle() {
           <CircularProgress className="loading-indicator" />
         </div>
       ) : article ? (
-        <Paper className="article-details" elevation={3}>
+        <div className="article-details" elevation={3}>
           <img
             src={article.image || "/images.png"}
             alt={article.title}
@@ -129,7 +123,7 @@ function SingleNewsArticle() {
             style={{ fontSize: `${fontSize}px` }}
             dangerouslySetInnerHTML={{ __html: article.content }} //ta ma ytla3lna html tags bi aleb l text
           />
-        </Paper>
+        </div>
       ) : (
         <Typography>No article found</Typography>
       )}
