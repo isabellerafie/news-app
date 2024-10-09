@@ -22,5 +22,18 @@ export const searchArticles = (keyword, pageNum) =>
   });
 
 // Function to get a single article by ID
-export const getSingleArticle = (id) =>
-  axios.get(`${API_BASE_URL}/show?id=${id}`);
+export const getSingleArticle = async (id) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/show?id=${id}`);
+    return response;
+  } catch (error) {
+    if (!navigator.onLine) {
+      console.error("You are offline. Unable to fetch the article.");
+      // You can return a cached fallback here or show a user-friendly message
+      return { data: { title: "Offline", content: "No internet connection" } };
+    } else {
+      console.error("Error fetching the article:", error);
+      throw error; // Throw the error so you can handle it in the UI
+    }
+  }
+};

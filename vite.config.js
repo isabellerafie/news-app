@@ -7,9 +7,9 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: "autoUpdate", //  Automatically updates the service worker in the background when a new version is available.
+      registerType: "autoUpdate",
       devOptions: {
-        enabled: true, // Enable PWA in development
+        enabled: true,
       },
       manifest: {
         name: "News App",
@@ -20,7 +20,7 @@ export default defineConfig({
         theme_color: "#00112f",
         icons: [
           {
-            src: "/logosmall.png", // Path to your icons
+            src: "/logosmall.png",
             sizes: "192x192",
             type: "image/png",
           },
@@ -31,7 +31,63 @@ export default defineConfig({
           },
         ],
       },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith("/assets"),
+            handler: "CacheFirst",
+            options: {
+              cacheName: "static-assets",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
+              },
+            },
+          },
+          {
+            urlPattern: ({ url }) =>
+              url.origin === "https://www.almarkazia.com",
+            handler: "StaleWhileRevalidate", // Serve cache and update in background
+            options: {
+              cacheName: "api-cache",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 24 * 60 * 60, // Cache for 1 day
+              },
+              networkTimeoutSeconds: 5,
+            },
+          },
+          {
+            urlPattern: ({ url }) =>
+              url.pathname.endsWith(".png") ||
+              url.pathname.endsWith(".css") ||
+              url.pathname.endsWith(".svg") ||
+              url.pathname.endsWith(".ttf"),
+            handler: "CacheFirst",
+            options: {
+              cacheName: "static-files",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 30 * 24 * 60 * 60,
+              },
+            },
+          },
+          {
+            // Handle navigation requests for React Router
+            urlPattern: ({ request, url }) =>
+              request.mode === "navigate" &&
+              !url.pathname.startsWith("/assets"),
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "pages-cache",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 7 days
+              },
+            },
+          },
+        ],
+      },
     }),
   ],
-  proxy: "https://www.almarkazia.com",
 });
