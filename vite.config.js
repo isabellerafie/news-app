@@ -47,7 +47,7 @@ export default defineConfig({
           {
             urlPattern: ({ url }) =>
               url.origin === "https://www.almarkazia.com",
-            handler: "StaleWhileRevalidate", // Serve cache and update in background
+            handler: "NetworkFirst",
             options: {
               cacheName: "api-cache",
               expiration: {
