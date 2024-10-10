@@ -18,19 +18,6 @@ function App() {
   const [activeCategory, setActiveCategory] = useState("");
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
-  // Automatically register the service worker
-  useEffect(() => {
-    const updateSW = registerSW({
-      onNeedRefresh() {
-        console.log("A new version of the app is available.");
-        // Optionally, you can prompt the user to refresh
-      },
-      onOfflineReady() {
-        console.log("App is ready to work offline.");
-      },
-    });
-  }, []);
-
   return (
     <div className={`app-container ${isSidebarVisible ? "shift-left" : ""}`}>
       <Provider store={store}>

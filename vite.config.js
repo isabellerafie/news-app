@@ -34,6 +34,7 @@ export default defineConfig({
       workbox: {
         runtimeCaching: [
           {
+            //lal fonts
             urlPattern: ({ url }) => url.pathname.startsWith("/assets"),
             handler: "CacheFirst",
             options: {
@@ -45,6 +46,7 @@ export default defineConfig({
             },
           },
           {
+            //lal aois
             urlPattern: ({ url }) =>
               url.origin === "https://www.almarkazia.com",
             handler: "NetworkFirst",
@@ -58,6 +60,7 @@ export default defineConfig({
             },
           },
           {
+            //lal suwar
             urlPattern: ({ url }) =>
               url.pathname.endsWith(".png") ||
               url.pathname.endsWith(".css") ||

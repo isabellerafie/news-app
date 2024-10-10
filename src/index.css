@@ -250,10 +250,10 @@ TextField {
 .name {
   color: #ffffff;
   background-color: #00112f;
-  padding: 3px 5px;
-  font-size: 11px;
-  text-align: right;
-  width: fit-content;
+  padding: 0;
+  /* font-size: 11px; */
+  /* text-align: right; */
+  width: -webkit-fill-available;
   height: fit-content;
 }
 
@@ -274,7 +274,7 @@ TextField {
 
 .news-date {
   color: #2e2c2c;
-  width: 100%;
+  /* width: 100%; */
   text-align: left;
   font-size: smaller;
 }

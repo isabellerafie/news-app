@@ -114,7 +114,7 @@ function CategoryList() {
                       >
                         <Typography
                           variant="body2"
-                          sx={{ fontSize: "0.5rem" }}
+                          sx={{ fontSize: "0.4rem" }}
                           className="news-date"
                         >
                           🕘{new Date(item.date).toLocaleDateString()}
