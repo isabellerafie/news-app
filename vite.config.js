@@ -7,9 +7,9 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: "autoUpdate",
+      registerType: "autoUpdate", // Automatically update the service worker
       devOptions: {
-        enabled: true,
+        enabled: true, // Enable service worker in development mode
       },
       manifest: {
         name: "News App",
@@ -32,31 +32,32 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Configuration for Workbox to handle caching
         runtimeCaching: [
           {
             //lal fonts
             urlPattern: ({ url }) => url.pathname.startsWith("/assets"),
-            handler: "CacheFirst",
+            handler: "CacheFirst", //Serve from cache first, then network
             options: {
               cacheName: "static-assets",
               expiration: {
-                maxEntries: 50,
+                maxEntries: 50, // Maximum number of entries in this cache
                 maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
               },
             },
           },
           {
-            //lal aois
+            //lal api responses
             urlPattern: ({ url }) =>
               url.origin === "https://www.almarkazia.com",
-            handler: "NetworkFirst",
+            handler: "NetworkFirst", //Fetch from network first, then cache
             options: {
               cacheName: "api-cache",
               expiration: {
                 maxEntries: 50,
                 maxAgeSeconds: 24 * 60 * 60, // Cache for 1 day
               },
-              networkTimeoutSeconds: 5,
+              networkTimeoutSeconds: 5, // Wait for the network response for 5 seconds before falling back to cache
             },
           },
           {
@@ -71,7 +72,7 @@ export default defineConfig({
               cacheName: "static-files",
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 30 * 24 * 60 * 60,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // Cache duration (30 days)
               },
             },
           },
