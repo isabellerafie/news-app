@@ -1,8 +1,13 @@
 html,
-body {
+body,
+* {
   margin: 0;
   padding: 0;
-  font-family: "JFFlat", sans-serif;
+  font-family: "JFFlat" !important;
+}
+
+body {
+  overflow-x: hidden !important;
 }
 
 @font-face {
@@ -22,7 +27,6 @@ AppBar {
   width: 100vw;
   height: fit-content;
   transition: backdrop-filter 0.3s ease;
-  width: 100vw;
 }
 
 .header__container {
@@ -32,6 +36,7 @@ AppBar {
   align-items: center;
   margin-top: 20px;
   transition: transform 0.3s ease-in-out;
+  overflow-x: hidden !important;
 }
 
 .header__logo img {
@@ -168,6 +173,8 @@ TextField {
   margin-right: 0;
   width: 100vw;
   position: static;
+  margin-bottom: -40px;
+  overflow-x: hidden !important;
 }
 
 .news-slider {
@@ -190,6 +197,7 @@ TextField {
   width: 100vw;
   height: 300px;
   object-fit: cover;
+  overflow-x: hidden;
 }
 
 .news-details {
@@ -213,22 +221,33 @@ TextField {
   background-color: #ffffff;
   width: fit-content;
   position: absolute;
-  right: 28px;
+  right: 20px;
   font-size: 15px;
+  margin-top: 10px;
+  padding: 3px;
 }
 
 .news-slogan {
-  font-weight: bold;
   color: #ffffff;
-  font-size: 0.6rem;
-  margin-top: 190px;
+  margin-top: 20px;
   white-space: normal;
   overflow-wrap: break-word;
-  margin-right: 17px;
+  text-align: right;
+  font-size: x-large;
+  margin-right: 20px;
+  overflow: hidden; /* Ensures overflow is hidden */
+  display: -webkit-box; /* Required for line clamping */
+  -webkit-box-orient: vertical; /* Set the box orientation */
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  line-clamp: 2;
+  justify-content: end;
+  direction: rtl;
+  padding-left: 15px;
 }
 
 .categories-container {
   background-color: #ffffff;
+  margin-top: 5px;
 }
 
 .category-name {
@@ -236,53 +255,59 @@ TextField {
   color: #ffffff;
   background-color: #00112f;
   margin-bottom: 5px;
-  text-align: end;
+  /* text-align: end; */
   width: 100%;
-  margin-top: 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.category {
-  margin-bottom: 3px;
-}
-
-.name {
-  color: #ffffff;
-  background-color: #00112f;
-  padding: 0;
-  /* font-size: 11px; */
-  /* text-align: right; */
-  width: -webkit-fill-available;
-  height: fit-content;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 140px;
 }
 
 .news-item {
   width: auto;
   margin-top: 10px;
-  height: auto;
+  height: 275px;
   padding-left: 20px;
   flex: 1 1 calc(50% - 20px);
+  margin-bottom: -25px;
+  border: none;
 }
 
 .news-info {
-  margin-top: 0;
+  margin-top: -24px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-right: -15px;
 }
 
 .news-date {
-  color: #2e2c2c;
+  color: #ffffff;
   /* width: 100%; */
   text-align: left;
-  font-size: smaller;
+  font-size: small;
+  margin-top: 8px;
+}
+
+.newss-date {
+  color: #ffffff;
+  /* width: 100%; */
+  text-align: left;
+  font-size: small;
+  margin-top: 8px;
+}
+
+.name {
+  color: #ffffff;
+  background-color: #00112f;
+  padding: 6px 6px;
+  /* font-size: 11px; */
+  /* text-align: right; */
+  width: fit-content;
+  height: fit-content;
 }
 
 .news-title {
-  font-size: 13px;
   color: #000000;
-  margin-top: 5px;
   text-align: right;
 }
 

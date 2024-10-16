@@ -65,7 +65,18 @@ function CategoryList() {
   }
 
   return (
-    <Container className="categories-container">
+    <Container
+      className="categories-container"
+      sx={{
+        marginLeft: "-52px",
+        width: "105vw",
+        paddingLeft: "20px",
+        paddingRight: "20px",
+        overflowX: "hidden", // Prevent horizontal scrolling
+        overflowY: "hidden",
+        backgroundColor: "#eeeeee",
+      }}
+    >
       <Grid2 container spacing={4}>
         {categories.map((category) => (
           <Grid2
@@ -78,12 +89,12 @@ function CategoryList() {
           >
             <Typography
               variant="h6"
-              sx={{ fontSize: "1.2rem" }}
+              sx={{ fontSize: "1.0rem" }}
               className="category-name"
             >
               {category.title}
             </Typography>
-            <Grid2 container spacing={2}>
+            <Grid2 container spacing={0.1}>
               {articles[category.id]?.map((item) => (
                 <Grid2 item xs={12} key={item.id} className="news-item">
                   <Card
@@ -93,16 +104,22 @@ function CategoryList() {
                       display: "flex",
                       flexDirection: "column",
                       height: "100%",
+                      borderRadius: 0,
                     }}
                   >
                     {/* Lazy load images */}
                     <LazyLoadImage
                       alt={item.title}
-                      effect="blur" // Optional: adds a blur effect while loading
+                      effect="blur" // adds a blur effect while loading
                       src={item.image || "/images.png"} // Fallback image
-                      height="100px"
+                      width="100%"
+                      style={{
+                        height: "120px",
+                        objectFit: "cover", // Ensures the image covers the container without stretching
+                      }}
                       onError={(e) => (e.target.src = "/images.png")} // Handle image load errors
                     />
+
                     <CardContent>
                       <div
                         className="news-info"
@@ -114,14 +131,19 @@ function CategoryList() {
                       >
                         <Typography
                           variant="body2"
-                          sx={{ fontSize: "0.4rem" }}
-                          className="news-date"
+                          sx={{
+                            fontSize: "0.8rem",
+                            color: "#00112f",
+                            marginTop: "4px",
+                            marginLeft: "-15px",
+                          }}
+                          className="newss-date"
                         >
-                          🕘{new Date(item.date).toLocaleDateString()}
+                          🕘{new Date(item.date).toISOString().substring(0, 10)}
                         </Typography>
                         <Typography
                           variant="body2"
-                          sx={{ fontSize: "0.65rem" }}
+                          sx={{ fontSize: "0.75rem" }}
                           className="name"
                         >
                           {category.title}
@@ -130,12 +152,14 @@ function CategoryList() {
                       <Typography
                         variant="body1"
                         sx={{
-                          fontSize: "0.85rem",
-                          fontWeight: "bold",
+                          fontSize: "0.95rem",
+                          fontWeight: "900",
                           display: "-webkit-box",
                           overflow: "hidden",
                           WebkitBoxOrient: "vertical",
                           WebkitLineClamp: 3, // Limit to 3 lines
+                          direction: "rtl",
+                          marginRight: "-10px",
                         }}
                         className="news-title"
                       >

@@ -46,7 +46,7 @@ function NewsSlider() {
   }
 
   return (
-    <div className="news-slider-container">
+    <div className="news-slider-container" style={{ overflowX: "hidden" }}>
       <div className="news-slider">
         {newsItems.slice(sliderValue, sliderValue + 1).map((newsItem) => (
           <div
@@ -71,16 +71,50 @@ function NewsSlider() {
           </div>
         ))}
       </div>
-
-      <Slider //MUI Slider
+      <Slider //MUI slider
         value={sliderValue}
         onChange={handleSliderChange}
         aria-labelledby="news-slider"
         min={0}
         max={4}
-        step={1}
+        step={1} // Step interval between slider values
         marks={newsItems.map((_, index) => ({ value: index }))}
-        valueLabelDisplay="auto"
+        valueLabelDisplay="auto" // Shows the value label when hovering over the thumb
+        sx={{
+          color: "#ffff", // Primary color of the slider
+          mt: -3, //marginTop
+          height: 12,
+          "& .MuiSlider-thumb": {
+            // Styles for the slider thumb (the draggable part)
+            height: 10,
+            width: 60,
+            backgroundColor: "#00112f",
+            border: "2px solid #00112f",
+            borderRadius: "0",
+            "&:hover, &.Mui-focusVisible, &.Mui-active": {
+              // Style when thumb is hovered, focused, or active
+              boxShadow: "none", // Removes the default shadow
+            },
+          },
+          "& .MuiSlider-track": {
+            // Styles for the track (the filled part of the slider)
+            height: 0, // Track height
+            backgroundColor: "#ffff", // Color of the track
+          },
+          "& .MuiSlider-rail": {
+            // Styles for the rail (the unfilled part of the slider)
+            height: 10, // Rail height
+            backgroundColor: "#ffff", // Light color for the rail
+          },
+          "& .MuiSlider-mark": {
+            // Styles for the slider marks (small dots/ticks along the track)
+            height: 0, // Mark height
+          },
+          "& .MuiSlider-markActive": {
+            // Styles for the marks that are active/selected
+            backgroundColor: "#acacac", // Active mark color
+          },
+        }}
       />
     </div>
   );

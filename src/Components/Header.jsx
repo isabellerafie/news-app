@@ -190,7 +190,7 @@ function Header({ setActiveCategory }) {
                 className={`latest ${activePage === "latest" ? "active" : ""}`}
                 onClick={handleLatestClick}
               >
-                آخر الأخبار
+                اخر الأخبار
               </Button>
             </div>
           )}

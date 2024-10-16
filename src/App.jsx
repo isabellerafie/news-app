@@ -12,8 +12,6 @@ import SearchResults from "./Components/SearchResults";
 import { Provider } from "react-redux"; // Import the Redux Provider
 import store from "./store"; // Import the store
 
-import { registerSW } from "virtual:pwa-register";
-
 function App() {
   const [activeCategory, setActiveCategory] = useState("");
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
