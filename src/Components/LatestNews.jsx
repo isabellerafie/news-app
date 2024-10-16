@@ -90,35 +90,52 @@ function LatestNews() {
             <Card
               className="latest-item"
               onClick={() => handleClick(latestItem.id)}
+              sx={{ backgroundColor: "#FFFFFF" }}
             >
-              {/* Lazy load images */}
-              <LazyLoadImage
-                alt={latestItem.title}
-                effect="blur"
-                src={latestItem.image || "/images.png"} // Fallback image
-                height="100px"
-                onError={(e) => (e.target.src = "/images.png")} // Handle error by setting a fallback image
-              />
+              {/* Conditionally render LazyLoadImage */}
+              {latestItem.image && (
+                <LazyLoadImage
+                  alt={latestItem.title}
+                  effect="blur"
+                  src={latestItem.image}
+                  width="120px"
+                  style={{
+                    height: "105px",
+                    marginLeft: "-20px",
+                    objectFit: "cover",
+                  }}
+                  onError={(e) => (e.target.src = "/images.png")}
+                />
+              )}
               <CardContent className="latest-details">
                 <Typography
                   variant="h6"
                   sx={{
-                    fontSize: "1rem",
-                    fontWeight: "bold",
+                    fontSize: "0.9rem",
+                    fontWeight: "900",
                     display: "-webkit-box",
                     overflow: "hidden",
                     WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 3,
+                    WebkitLineClamp: 2,
                   }}
                   className="latest-title"
                 >
                   {latestItem.title}
                 </Typography>
                 <div className="line">
-                  <Typography className="latest-date">
-                    {new Date(latestItem.date).toLocaleDateString()}
+                  <Typography
+                    className="latest-date"
+                    sx={{ fontSize: "13px", fontWeight: "bold" }}
+                  >
+                    {new Date(latestItem.date).toISOString().substring(0, 10)}
                   </Typography>
-                  <Typography variant="subtitle2" className="latest-category">
+                  <Typography
+                    variant="subtitle2"
+                    className="latest-category"
+                    sx={{
+                      fontSize: "10px",
+                    }}
+                  >
                     {latestItem.category.title}
                   </Typography>
                 </div>

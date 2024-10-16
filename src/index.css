@@ -314,22 +314,17 @@ TextField {
 .latest-list {
   margin-top: 85px;
   overflow-y: scroll;
+  margin-left: -21px;
+  overflow-x: hidden;
+  background-color: #acacac;
 }
 
 .latest-item {
-  border: 1px solid #ccc;
   display: flex;
   align-items: center;
   padding: 10px;
-  height: 125px;
-  width: 80vw;
-}
-
-.latest-item img {
-  width: 100px;
-  height: 50px;
-  object-fit: cover;
-  margin-top: 20px;
+  height: 80px;
+  width: 90vw;
 }
 
 .latest-details {
@@ -339,23 +334,24 @@ TextField {
 }
 
 .latest-title {
-  font-weight: bold;
   margin-bottom: 5px;
-  line-height: 1.2em;
+  line-height: 1em;
+  direction: rtl;
+  text-align: right;
+  color: black;
 }
 
 .line {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
+  margin-top: 10px;
 }
 
 .latest-category {
   color: #ffffff;
   background-color: #00112f;
   padding: 3px 5px;
-  border-radius: 5px;
-  font-size: 11px;
 }
 
 .specific-category-page {
