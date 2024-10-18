@@ -8,6 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CircularProgress from "@mui/material/CircularProgress";
 import Drawer from "@mui/material/Drawer";
+import { BorderVerticalOutlined } from "@mui/icons-material";
 
 function Header({ setActiveCategory }) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -201,7 +202,7 @@ function Header({ setActiveCategory }) {
       )}
       {isSearchVisible && (
         <div className="search-container">
-          <IconButton onClick={clearSearch} color="inherit">
+          <IconButton onClick={clearSearch} sx={{ color: "white" }}>
             <CloseIcon />
           </IconButton>
 
@@ -212,11 +213,20 @@ function Header({ setActiveCategory }) {
             value={searchQuery}
             onChange={handleSearchInputChange}
             onKeyDown={handleKeyPress}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                color: "#838282", // Set font color to blue
+                "& input": {
+                  color: "#838282", // Ensure input text color is blue
+                },
+              },
+            }}
             slotProps={{
               htmlInput: {
                 style: {
-                  backgroundColor: "white",
+                  backgroundColor: "#d8d5d5",
                   textAlign: "right",
+                  width: "100vw",
                 },
               },
             }}

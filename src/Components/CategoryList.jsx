@@ -105,6 +105,7 @@ function CategoryList() {
                       flexDirection: "column",
                       height: "100%",
                       borderRadius: 0,
+                      boxShadow: "none",
                     }}
                   >
                     {/* Lazy load images */}
