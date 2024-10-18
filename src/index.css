@@ -8,6 +8,7 @@ body,
 
 body {
   overflow-x: hidden !important;
+  width: 100vw !important;
 }
 
 @font-face {
@@ -197,7 +198,7 @@ TextField {
   width: 100vw;
   height: 300px;
   object-fit: cover;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 
 .news-details {
@@ -259,17 +260,17 @@ TextField {
   width: 100%;
   padding-top: 15px;
   padding-bottom: 15px;
-  padding-left: 140px;
+  padding-left: 160px !important;
 }
 
 .news-item {
   width: auto;
   margin-top: 10px;
-  height: 275px;
+  height: 230px;
   padding-left: 20px;
   flex: 1 1 calc(50% - 20px);
-  margin-bottom: -25px;
-  border: none;
+  margin-bottom: -8px;
+  border-radius: 0%;
 }
 
 .news-info {
@@ -315,7 +316,7 @@ TextField {
   margin-top: 85px;
   overflow-y: scroll;
   margin-left: -21px;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   background-color: #acacac;
 }
 
@@ -355,8 +356,8 @@ TextField {
 }
 
 .specific-category-page {
-  margin-top: -45px;
-  width: 100vw;
+  margin-top: -92px;
+  width: 100vw !important;
   margin-left: -33px;
 }
 
@@ -366,6 +367,7 @@ TextField {
   flex-direction: column;
   align-items: center;
   margin-top: 70px;
+  margin-bottom: -18px;
 }
 
 .main-news-info {
@@ -385,43 +387,42 @@ TextField {
 .snews-date {
   flex: 1;
   text-align: left;
+  color: #ffffff;
 }
 
 .snews-category {
   text-align: right;
   background-color: #ffffff;
-  font-weight: bold;
-  padding: 2px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 20px;
+  padding-left: 20px;
 }
 
-.other-news {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  background-color: #acacac;
-}
-
-.news-item-image {
-  width: 100%;
-  height: 170px;
+.othernews {
+  border: none;
+  background-color: #eeee;
+  padding-left: 17px;
 }
 
 .news-item-info {
   display: flex;
   justify-content: space-between;
-  margin-top: -40px;
+  margin-top: -25px;
 }
 
 .news-item-date {
   text-align: left;
-  font-size: x-small;
+  font-size: small;
   width: 100%;
+  margin-top: 5px;
+  margin-left: -10px;
 }
 
 .news-item-category {
   color: #ffffff;
   background-color: #00112f;
-  padding: 0;
+  padding: 4px;
   width: -webkit-fill-available;
   height: fit-content;
 }
@@ -430,6 +431,9 @@ TextField {
   text-align: center;
   font-size: 10px;
   margin-top: -10px;
+  direction: rtl;
+  color: #000000;
+  font-weight: 900;
 }
 
 .preloader {
@@ -552,4 +556,8 @@ hr {
 .header__container.shift-left,
 .button-container.shift-left {
   margin-right: 240px;
+}
+
+.load-more-wrapper {
+  background-color: white;
 }

@@ -41,6 +41,8 @@ function Header({ setActiveCategory }) {
       setActivePage("home");
     } else if (location.pathname === "/latest") {
       setActivePage("latest");
+    } else if (location.pathname.startsWith("/category")) {
+      setActivePage("category");
     } else {
       setActivePage("");
     }
@@ -117,14 +119,9 @@ function Header({ setActiveCategory }) {
     clearSearch();
   };
 
-  const filteredCategories = Array.isArray(categories)
-    ? categories.filter((item) =>
-        item.title.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : [];
-
   const isOnSingleArticlePage = location.pathname.startsWith("/news-details");
-  const isOnSearchResultsPage = location.pathname === "/search-results"; // Check if on search results page
+  const isOnSearchResultsPage = location.pathname === "/search-results";
+  const isOnCategoryPage = location.pathname.startsWith("/category");
 
   return (
     <>
@@ -152,7 +149,9 @@ function Header({ setActiveCategory }) {
             isSidebarVisible ? "shift-left" : ""
           }`}
         >
-          {isOnSingleArticlePage || isOnSearchResultsPage ? ( // Show back button if on a single article or search results page
+          {isOnSingleArticlePage ||
+          isOnSearchResultsPage ||
+          isOnCategoryPage ? ( //show back button if on these pages
             <IconButton //for icons
               onClick={() => navigate(-1)}
               title="Back"
@@ -176,7 +175,8 @@ function Header({ setActiveCategory }) {
         </div>
 
         {!isOnSingleArticlePage &&
-          !isOnSearchResultsPage && ( // Hide buttons on article or search results page
+          !isOnSearchResultsPage &&
+          !isOnCategoryPage && ( //hide these 2 butons on these pages
             <div
               className={`button-container ${isSidebarVisible ? "margin" : ""}`}
             >
@@ -227,41 +227,43 @@ function Header({ setActiveCategory }) {
       {isLoading && (
         <div className="preloader-overlay">
           <div className="loading-indicator">
-            <CircularProgress color="primary" /> {/* loading indicator */}
+            <CircularProgress color="primary" />
+            {/* loading indicator */}
           </div>
         </div>
       )}
 
       {!isLoading && (
-        <>
-          <Drawer //sidebar
-            anchor="right"
-            open={isSidebarVisible}
-            onClose={toggleSidebar}
-            PaperProps={{
-              sx: { backgroundColor: "#00112f" },
-            }}
-          >
-            <div className="sidebar-content">
-              <IconButton onClick={toggleSidebar} color="inherit">
-                <CloseIcon />
-              </IconButton>
-              <ul>
-                {filteredCategories.length > 0 ? (
-                  filteredCategories.map((item) => (
-                    <li key={item.id}>
-                      <a href="#" onClick={() => handleCategoryClick(item.id)}>
-                        {item.title}
-                      </a>
-                    </li>
-                  ))
-                ) : (
-                  <li>No categories found</li>
-                )}
-              </ul>
-            </div>
-          </Drawer>
-        </>
+        <Drawer //sidebar
+          anchor="right"
+          open={isSidebarVisible}
+          onClose={toggleSidebar}
+          PaperProps={{
+            sx: { backgroundColor: "#00112f" },
+          }}
+        >
+          <div className="sidebar-content">
+            <IconButton onClick={toggleSidebar} color="inherit">
+              <CloseIcon />
+            </IconButton>
+            <ul>
+              {categories.length > 0 ? (
+                categories.map((item) => (
+                  <li key={item.id}>
+                    <div
+                      onClick={() => handleCategoryClick(item.id)}
+                      style={{ cursor: "pointer", color: "#ffffff" }}
+                    >
+                      {item.title}
+                    </div>
+                  </li>
+                ))
+              ) : (
+                <li>No categories found</li>
+              )}
+            </ul>
+          </div>
+        </Drawer>
       )}
     </>
   );

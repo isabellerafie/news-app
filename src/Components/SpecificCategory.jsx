@@ -58,16 +58,31 @@ function SpecificCategory({ activeCategory }) {
                   src={articles[0].image || "/images.png"}
                   className="main-news-image"
                   onError={(e) => (e.target.src = "/images.png")}
-                  height="250px"
-                  width="100%"
+                  height="240px"
+                  width="100vw"
                   style={{ objectFit: "cover" }}
                 />
                 <CardContent>
                   <div className="main-news-info">
-                    <Typography className="snews-date">
-                      🕘 {new Date(articles[0].date).toLocaleTimeString()}
+                    <Typography
+                      className="snews-date"
+                      sx={{ marginLeft: "-7px", marginTop: "17px" }}
+                    >
+                      🕘{" "}
+                      {new Date(articles[0].date).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                      })}
                     </Typography>
-                    <Typography className="snews-category">
+                    <Typography
+                      className="snews-category"
+                      sx={{
+                        marginRight: "-5px",
+                        fontWeight: "900",
+                        marginTop: "18px",
+                      }}
+                    >
                       {articles[0].category.title}
                     </Typography>
                   </div>
@@ -75,11 +90,19 @@ function SpecificCategory({ activeCategory }) {
                     variant="h5"
                     className="main-news-title"
                     sx={{
-                      marginTop: "220px",
+                      marginTop: "180px",
                       color: "#ffffff",
-                      textAlign: "center",
-                      fontSize: "0.8em",
                       position: "relative",
+                      direction: "rtl",
+                      fontSize: "28px",
+                      display: "-webkit-box",
+                      overflow: "hidden",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 2, // Limit to 2 lines
+                      justifyContent: "end",
+                      textAlign: "right",
+                      overflowWrap: "break-word",
+                      fontWeight: "200",
                     }}
                   >
                     {articles[0].title}
@@ -89,13 +112,13 @@ function SpecificCategory({ activeCategory }) {
             </Grid>
 
             {/* Other news in rows of two */}
-            <Grid container spacing={2}>
+            <Grid container spacing={1} className="othernews">
               {articles.slice(1).map((article) => (
                 <Grid item xs={6} key={article.id}>
                   <Card
                     className="news-item"
                     onClick={() => handleArticleClick(article.id)}
-                    sx={{ paddingLeft: "0" }}
+                    sx={{ padding: "0", borderRadius: "0", boxShadow: "none" }}
                   >
                     <LazyLoadImage
                       alt={article.title}
@@ -103,16 +126,22 @@ function SpecificCategory({ activeCategory }) {
                       src={article.image || "/images.png"}
                       className="news-item-image"
                       onError={(e) => (e.target.src = "/images.png")}
-                      height="200px"
+                      height="120px"
                       width="100%"
                       style={{ objectFit: "cover" }}
                     />
                     <CardContent>
                       <div className="news-item-info">
                         <div className="news-item-date">
-                          🕘{new Date(article.date).toLocaleDateString()}
+                          🕘{new Date(article.date).toISOString().split("T")[0]}
                         </div>
-                        <Typography className="news-item-category">
+                        <Typography
+                          className="news-item-category"
+                          sx={{
+                            fontSize: "small",
+                            marginRight: "-13px",
+                          }}
+                        >
                           {article.category.title}
                         </Typography>
                       </div>
@@ -120,11 +149,20 @@ function SpecificCategory({ activeCategory }) {
                         variant="h6"
                         className="news-item-title"
                         sx={{
-                          fontSize: "0.8em",
+                          fontSize: "1em",
                           display: "-webkit-box",
                           overflow: "hidden",
                           WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 1, // Limit to 1 line
+                          WebkitLineClamp: 2, // Limit to 2 lines
+                          position: "relative",
+                          direction: "rtl",
+                          justifyContent: "end",
+                          textAlign: "right",
+                          overflowWrap: "break-word",
+                          fontWeight: "900",
+                          marginTop: "5px",
+                          marginRight: "-10px",
+                          color: "black",
                         }}
                       >
                         {article.title}
