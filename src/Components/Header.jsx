@@ -8,7 +8,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CircularProgress from "@mui/material/CircularProgress";
 import Drawer from "@mui/material/Drawer";
-import { BorderVerticalOutlined } from "@mui/icons-material";
 
 function Header({ setActiveCategory }) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -145,11 +144,7 @@ function Header({ setActiveCategory }) {
         className={`header ${isSearchVisible ? "blur" : ""}`}
         sx={{ backgroundColor: "#00112f" }}
       >
-        <div
-          className={`header__container ${
-            isSidebarVisible ? "shift-left" : ""
-          }`}
-        >
+        <div className="header__container">
           {isOnSingleArticlePage ||
           isOnSearchResultsPage ||
           isOnCategoryPage ? ( //show back button if on these pages
@@ -170,16 +165,29 @@ function Header({ setActiveCategory }) {
             <img src="sync-logo.png" alt="Sync Logo" />
           </div>
 
-          <IconButton onClick={toggleSidebar} color="inherit">
-            <MenuIcon />
-          </IconButton>
+          {/* Display close icon instead of menu icon when sidebar is open */}
+          {isSidebarVisible ? (
+            <IconButton onClick={toggleSidebar} color="inherit">
+              <CloseIcon />
+            </IconButton>
+          ) : (
+            <IconButton onClick={toggleSidebar} color="inherit">
+              <MenuIcon />
+            </IconButton>
+          )}
         </div>
 
         {!isOnSingleArticlePage &&
           !isOnSearchResultsPage &&
-          !isOnCategoryPage && ( //hide these 2 butons on these pages
+          !isOnCategoryPage && ( //hide these 2 buttons on these pages
             <div
-              className={`button-container ${isSidebarVisible ? "margin" : ""}`}
+              className={`button-container`}
+              style={{
+                transform: isSidebarVisible
+                  ? "translateX(-240px)"
+                  : "translateX(0)", // Adjust the value according to sidebar width
+                transition: "transform 0.3s ease-in-out", // Smooth transition
+              }}
             >
               <Button
                 className={`home ${activePage === "home" ? "active" : ""}`}
@@ -249,20 +257,21 @@ function Header({ setActiveCategory }) {
           open={isSidebarVisible}
           onClose={toggleSidebar}
           PaperProps={{
-            sx: { backgroundColor: "#00112f" },
+            sx: { backgroundColor: "#00112f", marginTop: "60px" },
           }}
         >
           <div className="sidebar-content">
-            <IconButton onClick={toggleSidebar} color="inherit">
-              <CloseIcon />
-            </IconButton>
             <ul>
               {categories.length > 0 ? (
                 categories.map((item) => (
                   <li key={item.id}>
                     <div
                       onClick={() => handleCategoryClick(item.id)}
-                      style={{ cursor: "pointer", color: "#ffffff" }}
+                      style={{
+                        cursor: "pointer",
+                        color: "#ffffff",
+                        marginTop: "25px",
+                      }}
                     >
                       {item.title}
                     </div>

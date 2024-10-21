@@ -138,7 +138,7 @@ TextField {
   float: right;
   top: 0;
   right: 0;
-  width: 130px;
+  width: 240px;
   height: 100%;
   overflow-y: scroll;
   /* Enable vertical scrollbar */
@@ -314,7 +314,6 @@ TextField {
 
 .latest-list {
   margin-top: 85px;
-  overflow-y: scroll;
   margin-left: -21px;
   overflow-x: hidden !important;
   background-color: #acacac;
@@ -450,14 +449,8 @@ TextField {
 }
 
 .search-results-container {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
   padding: 20px;
-  max-width: 600px;
-  margin: 20px auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 25px;
+  margin-top: 15px;
 }
 
 .single-news-article {
@@ -476,18 +469,18 @@ TextField {
 .article-info-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  margin-top: -13px;
 }
 
 .article-date {
-  font-size: 1em;
   color: #acacac;
 }
 
 .category-label {
   color: #ffffff;
   background-color: #00112f;
-  padding: 0 5px;
+  padding: 2px 20px;
   width: fit-content;
   height: fit-content;
 }
@@ -498,8 +491,7 @@ hr {
 }
 
 .article-title {
-  font-size: 1.1em;
-  font-weight: bolder;
+  direction: rtl;
   text-align: right;
   color: black;
 }
@@ -517,17 +509,17 @@ hr {
 }
 
 .sidebar-content {
-  width: 150px;
+  width: 240px;
+  direction: rtl;
   text-align: center;
+  font-size: large;
+  height: calc(100vh - 60px); /* Adjust height based on the AppBar height */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
 }
 
 .sidebar-content ul {
   list-style-type: none;
-  padding: 10px;
-}
-
-.sidebar-content ul li {
-  margin: 10px 0;
+  margin-top: 70px;
 }
 
 .sidebar-content ul li a {

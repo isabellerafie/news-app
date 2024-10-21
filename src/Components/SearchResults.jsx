@@ -67,7 +67,10 @@ function SearchResults() {
   };
 
   return (
-    <Container className="search-results-container">
+    <Container
+      className="search-results-container"
+      sx={{ width: "100vw", overflowX: "hidden", marginLeft: "-30px" }}
+    >
       {searchResults.length > 0 ? (
         <Grid2 container spacing={0}>
           {searchResults.map((article, index) => (
@@ -76,27 +79,30 @@ function SearchResults() {
                 className="latest-item"
                 onClick={() => handleResultClick(article.id)}
                 style={{ cursor: "pointer" }}
+                sx={{ backgroundColor: "#FFFFFF" }}
               >
-                <LazyLoadImage
-                  alt={article.title}
-                  effect="blur"
-                  src={article.image || "/images.png"}
-                  height="200px"
-                  onError={(e) => (e.target.src = "/images.png")}
-                  style={{
-                    width: "100%",
-                    objectFit: "cover",
-                    height: "fit-content",
-                    marginTop: "40px",
-                  }}
-                />
-                <CardContent>
+                {/* Conditionally render LazyLoadImage */}
+                {article.image && (
+                  <LazyLoadImage
+                    alt={article.title}
+                    effect="blur"
+                    src={article.image || "/images.png"}
+                    width="120px"
+                    style={{
+                      height: "105px",
+                      marginLeft: "-20px",
+                      objectFit: "cover",
+                    }}
+                    onError={(e) => (e.target.src = "/images.png")}
+                  />
+                )}
+                <CardContent className="latest-details">
                   <Typography
                     variant="h6"
                     className="latest-title"
                     sx={{
-                      fontSize: "1rem",
-                      fontWeight: "bold",
+                      fontSize: "0.9rem",
+                      fontWeight: "900",
                       display: "-webkit-box",
                       overflow: "hidden",
                       WebkitBoxOrient: "vertical",
@@ -106,10 +112,19 @@ function SearchResults() {
                     {article.title}
                   </Typography>
                   <div className="line">
-                    <Typography className="latest-date">
-                      {new Date(article.date).toLocaleDateString()}
+                    <Typography
+                      className="latest-date"
+                      sx={{ fontSize: "smaller", fontWeight: "bold" }}
+                    >
+                      {new Date(article.date).toISOString().substring(0, 10)}
                     </Typography>
-                    <Typography variant="subtitle2" className="latest-category">
+                    <Typography
+                      variant="subtitle2"
+                      className="latest-category"
+                      sx={{
+                        fontSize: "10px",
+                      }}
+                    >
                       {article.category.title}
                     </Typography>
                   </div>

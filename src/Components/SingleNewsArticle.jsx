@@ -37,12 +37,6 @@ function SingleNewsArticle() {
     window.scrollTo(0, 0);
   }, []);
 
-  // Function to format the date
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(); // Formats the date as MM/DD/YYYY
-  };
-
   // Function to handle sharing
   const handleShare = () => {
     if (navigator.share) {
@@ -80,10 +74,16 @@ function SingleNewsArticle() {
             src={article.image || "/images.png"}
             alt={article.title}
             onError={(e) => (e.target.src = "/images.png")}
+            height="240px"
+            width="100vw"
+            style={{ objectFit: "cover" }}
           />
           <div className="article-info-row">
-            <Typography className="article-date" sx={{ marginTop: "6px" }}>
-              {formatDate(article.date)}
+            <Typography
+              className="article-date"
+              sx={{ marginTop: "10px", fontSize: "0.8em" }}
+            >
+              {new Date(article.date).toISOString().substring(0, 10)}
             </Typography>
             <Grid2
               container
@@ -106,7 +106,7 @@ function SingleNewsArticle() {
                 <AddIcon />
               </IconButton>
             </Grid2>
-            <Typography className="category-label">
+            <Typography className="category-label" sx={{ marginTop: "8px" }}>
               {article.category.title}
             </Typography>
           </div>
@@ -114,13 +114,17 @@ function SingleNewsArticle() {
           <Typography
             variant="h4"
             className="article-title"
-            sx={{ fontSize: "1.5em" }}
+            sx={{ fontSize: "1.1em", fontWeight: "900" }}
           >
             {article.title}
           </Typography>
           <div
             className="article-content"
-            style={{ fontSize: `${fontSize}px` }}
+            style={{
+              fontSize: `${fontSize}px`,
+              direction: "rtl",
+              marginTop: "20px",
+            }}
             dangerouslySetInnerHTML={{ __html: article.content }} //ta ma ytla3lna html tags bi aleb l text
           />
         </div>

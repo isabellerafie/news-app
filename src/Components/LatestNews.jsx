@@ -125,7 +125,7 @@ function LatestNews() {
                 <div className="line">
                   <Typography
                     className="latest-date"
-                    sx={{ fontSize: "13px", fontWeight: "bold" }}
+                    sx={{ fontSize: "smaller", fontWeight: "bold" }}
                   >
                     {new Date(latestItem.date).toISOString().substring(0, 10)}
                   </Typography>
