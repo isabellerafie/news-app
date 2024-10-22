@@ -77,7 +77,7 @@ function CategoryList() {
         backgroundColor: "#eeeeee",
       }}
     >
-      <Grid2 container spacing={4}>
+      <Grid2 container spacing={2}>
         {categories.map((category) => (
           <Grid2
             item
@@ -96,7 +96,7 @@ function CategoryList() {
             </Typography>
             <Grid2 container spacing={0.1}>
               {articles[category.id]?.map((item) => (
-                <Grid2 item xs={12} key={item.id} className="news-item">
+                <Grid2 item xs={12} key={item.id} className="newss-item">
                   <Card
                     onClick={() => handleClick(item.id)}
                     className="news-card"
@@ -115,7 +115,7 @@ function CategoryList() {
                       src={item.image || "/images.png"} // Fallback image
                       width="100%"
                       style={{
-                        height: "120px",
+                        height: "100px",
                         objectFit: "cover", // Ensures the image covers the container without stretching
                       }}
                       onError={(e) => (e.target.src = "/images.png")} // Handle image load errors

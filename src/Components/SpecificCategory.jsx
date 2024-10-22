@@ -61,7 +61,7 @@ function SpecificCategory({ activeCategory }) {
                   src={articles[0].image || "/images.png"}
                   className="main-news-image"
                   onError={(e) => (e.target.src = "/images.png")}
-                  height="240px"
+                  height="150px"
                   width="100%"
                   style={{ objectFit: "cover" }}
                 />
@@ -69,7 +69,11 @@ function SpecificCategory({ activeCategory }) {
                   <div className="main-news-info">
                     <Typography
                       className="snews-date"
-                      sx={{ marginLeft: "-7px", marginTop: "17px" }}
+                      sx={{
+                        marginLeft: "-7px",
+                        marginTop: "20px",
+                        fontSize: "12px",
+                      }}
                     >
                       🕘{" "}
                       {new Date(articles[0].date).toLocaleTimeString([], {
@@ -84,6 +88,7 @@ function SpecificCategory({ activeCategory }) {
                         marginRight: "-5px",
                         fontWeight: "900",
                         marginTop: "18px",
+                        fontSize: "12px",
                       }}
                     >
                       {articles[0].category.title}
@@ -93,11 +98,10 @@ function SpecificCategory({ activeCategory }) {
                     variant="h5"
                     className="main-news-title"
                     sx={{
-                      marginTop: hasImage ? "165px" : "250px",
+                      marginTop: "165px",
                       color: "#ffffff",
-                      position: "relative",
                       direction: "rtl",
-                      fontSize: "28px",
+                      fontSize: "22px",
                       display: "-webkit-box",
                       overflow: "hidden",
                       WebkitBoxOrient: "vertical",
@@ -106,6 +110,8 @@ function SpecificCategory({ activeCategory }) {
                       textAlign: "right",
                       overflowWrap: "break-word",
                       fontWeight: "200",
+                      position: "relative",
+                      marginBottom: "-20px",
                     }}
                   >
                     {articles[0].title}
@@ -120,7 +126,7 @@ function SpecificCategory({ activeCategory }) {
               spacing={1}
               className="othernews"
               sx={{
-                marginTop: "10px",
+                marginTop: "30px",
               }}
             >
               {articles.slice(1).map((article) => (
@@ -136,7 +142,7 @@ function SpecificCategory({ activeCategory }) {
                       src={article.image || "/images.png"}
                       className="news-item-image"
                       onError={(e) => (e.target.src = "/images.png")}
-                      height="120px"
+                      height="80px"
                       width="100%"
                       style={{ objectFit: "cover" }}
                     />
@@ -159,7 +165,7 @@ function SpecificCategory({ activeCategory }) {
                         variant="h6"
                         className="news-item-title"
                         sx={{
-                          fontSize: "1em",
+                          fontSize: "0.8em",
                           display: "-webkit-box",
                           overflow: "hidden",
                           WebkitBoxOrient: "vertical",
