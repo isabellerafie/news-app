@@ -62,7 +62,7 @@ function NewsSlider() {
               <div className="news-date-container">
                 <span className="date-icon">🕘</span>
                 <p className="news-date">
-                  {new Date(newsItem.date).toLocaleDateString()}
+                  {new Date(newsItem.date).toISOString().substring(0, 10)}
                 </p>
               </div>
               <h2 className="news-category">{newsItem.category.title}</h2>

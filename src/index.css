@@ -33,7 +33,7 @@ AppBar {
 .header__container {
   display: flex;
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 0 10px;
   align-items: center;
   margin-top: 20px;
   transition: transform 0.3s ease-in-out;
@@ -50,7 +50,7 @@ AppBar {
   color: #ffffff;
   width: 50%;
   position: relative;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .button-container.margin {
@@ -169,7 +169,7 @@ TextField {
 }
 
 .news-slider-container {
-  margin-top: 88px;
+  margin-top: 76px;
   margin-left: -32px;
   margin-right: 0;
   width: 100vw;
@@ -184,7 +184,7 @@ TextField {
   white-space: nowrap;
   display: flex;
   align-items: center;
-  height: 300px;
+  height: 250px;
 }
 
 .news-slide {
@@ -203,7 +203,7 @@ TextField {
 
 .news-details {
   position: absolute;
-  top: 0;
+  top: 20px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -211,7 +211,6 @@ TextField {
   flex-direction: column;
   justify-content: space-between;
 }
-
 .news-date-container {
   display: flex;
   align-items: center;
@@ -223,14 +222,14 @@ TextField {
   width: fit-content;
   position: absolute;
   right: 20px;
-  font-size: 15px;
+  font-size: 13px;
   margin-top: 10px;
-  padding: 3px;
+  padding: 1px 10px;
+  font-weight: lighter;
 }
 
 .news-slogan {
   color: #ffffff;
-  margin-top: 20px;
   white-space: normal;
   overflow-wrap: break-word;
   text-align: right;
@@ -244,6 +243,7 @@ TextField {
   justify-content: end;
   direction: rtl;
   padding-left: 15px;
+  margin-bottom: 30px;
 }
 
 .categories-container {
@@ -252,24 +252,21 @@ TextField {
 }
 
 .category-name {
-  font-size: 18px;
   color: #ffffff;
   background-color: #00112f;
-  margin-bottom: 5px;
-  /* text-align: end; */
   width: 100%;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 160px !important;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 150px !important;
 }
 
 .news-item {
   width: auto;
-  margin-top: 10px;
-  height: 230px;
+  margin-top: 7px;
+  height: 225px;
   padding-left: 20px;
   flex: 1 1 calc(50% - 20px);
-  margin-bottom: -8px;
+  margin-bottom: -6px;
   border-radius: 0%;
 }
 
@@ -283,18 +280,9 @@ TextField {
 
 .news-date {
   color: #ffffff;
-  /* width: 100%; */
   text-align: left;
   font-size: small;
-  margin-top: 8px;
-}
-
-.newss-date {
-  color: #ffffff;
-  /* width: 100%; */
-  text-align: left;
-  font-size: small;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 .name {
@@ -313,7 +301,7 @@ TextField {
 }
 
 .latest-list {
-  margin-top: 85px;
+  margin-top: 70px;
   margin-left: -21px;
   overflow-x: hidden !important;
   background-color: #f3eeee;
@@ -368,7 +356,7 @@ TextField {
   flex-direction: column;
   align-items: center;
   margin-top: 70px;
-  margin-bottom: -18px;
+  margin-bottom: -15px;
 }
 
 .main-news-info {
@@ -423,8 +411,7 @@ TextField {
 .news-item-category {
   color: #ffffff;
   background-color: #00112f;
-  padding: 4px;
-  width: -webkit-fill-available;
+  padding: 5px 15px;
   height: fit-content;
 }
 

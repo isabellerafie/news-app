@@ -36,6 +36,8 @@ function SpecificCategory({ activeCategory }) {
     navigate(`/news-details/${id}`); // Navigate to the Single News Article Page
   };
 
+  const hasImage = articles[0]?.image && articles[0].image !== "/images.png";
+
   return (
     <div className="specific-category-page">
       <Typography variant="h4">{activeCategory}</Typography>
@@ -51,6 +53,7 @@ function SpecificCategory({ activeCategory }) {
               <Card
                 className="main-news"
                 onClick={() => handleArticleClick(articles[0].id)}
+                sx={{ marginBottom: hasImage ? "-35px" : "-15px" }} // Adjust margin based on image presence
               >
                 <LazyLoadImage
                   alt={articles[0].title}
@@ -59,7 +62,7 @@ function SpecificCategory({ activeCategory }) {
                   className="main-news-image"
                   onError={(e) => (e.target.src = "/images.png")}
                   height="240px"
-                  width="100vw"
+                  width="100%"
                   style={{ objectFit: "cover" }}
                 />
                 <CardContent>
@@ -90,7 +93,7 @@ function SpecificCategory({ activeCategory }) {
                     variant="h5"
                     className="main-news-title"
                     sx={{
-                      marginTop: "180px",
+                      marginTop: hasImage ? "165px" : "250px",
                       color: "#ffffff",
                       position: "relative",
                       direction: "rtl",
@@ -167,7 +170,7 @@ function SpecificCategory({ activeCategory }) {
                           textAlign: "right",
                           overflowWrap: "break-word",
                           fontWeight: "900",
-                          marginTop: "5px",
+                          marginTop: "3px",
                           marginRight: "-10px",
                           color: "black",
                         }}

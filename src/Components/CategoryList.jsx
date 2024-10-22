@@ -89,7 +89,7 @@ function CategoryList() {
           >
             <Typography
               variant="h6"
-              sx={{ fontSize: "1.0rem" }}
+              sx={{ fontSize: "0.9rem" }}
               className="category-name"
             >
               {category.title}
@@ -127,16 +127,19 @@ function CategoryList() {
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
-                          marginBottom: "8px",
+                          marginBottom: "2px",
+                          fontWeight: "900",
+                          color: "black",
                         }}
                       >
                         <Typography
                           variant="body2"
                           sx={{
-                            fontSize: "0.8rem",
-                            color: "#00112f",
+                            fontSize: "0.6rem",
+                            color: "black",
                             marginTop: "4px",
                             marginLeft: "-15px",
+                            fontWeight: "500",
                           }}
                           className="newss-date"
                         >
@@ -144,7 +147,7 @@ function CategoryList() {
                         </Typography>
                         <Typography
                           variant="body2"
-                          sx={{ fontSize: "0.75rem" }}
+                          sx={{ fontSize: "0.6rem" }}
                           className="name"
                         >
                           {category.title}
@@ -153,7 +156,7 @@ function CategoryList() {
                       <Typography
                         variant="body1"
                         sx={{
-                          fontSize: "0.95rem",
+                          fontSize: "0.7rem",
                           fontWeight: "900",
                           display: "-webkit-box",
                           overflow: "hidden",
@@ -161,6 +164,7 @@ function CategoryList() {
                           WebkitLineClamp: 3, // Limit to 3 lines
                           direction: "rtl",
                           marginRight: "-10px",
+                          color: "black",
                         }}
                         className="news-title"
                       >
