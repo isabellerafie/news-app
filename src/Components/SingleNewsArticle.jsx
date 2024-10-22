@@ -90,23 +90,32 @@ function SingleNewsArticle() {
               justifyContent="flex-end"
               className="article-icons"
             >
-              <IconButton onClick={handleShare} aria-label="share">
+              <IconButton
+                onClick={handleShare}
+                aria-label="share"
+                sx={{ marginRight: "40px" }}
+              >
                 <ShareIcon />
               </IconButton>
               <IconButton
                 onClick={decreaseFontSize}
                 aria-label="decrease font size"
+                sx={{ marginRight: "20px" }}
               >
                 <RemoveIcon />
               </IconButton>
               <IconButton
                 onClick={increaseFontSize}
                 aria-label="increase font size"
+                sx={{ marginRight: "25px" }}
               >
                 <AddIcon />
               </IconButton>
             </Grid2>
-            <Typography className="category-label" sx={{ marginTop: "8px" }}>
+            <Typography
+              className="category-label"
+              sx={{ marginTop: "8px", fontSize: "13px" }}
+            >
               {article.category.title}
             </Typography>
           </div>
@@ -114,7 +123,13 @@ function SingleNewsArticle() {
           <Typography
             variant="h4"
             className="article-title"
-            sx={{ fontSize: "1.1em", fontWeight: "900" }}
+            sx={{
+              fontSize: "1.1em",
+              fontWeight: "900",
+              marginRight: "25px",
+              marginTop: "5px",
+              color: "black",
+            }}
           >
             {article.title}
           </Typography>

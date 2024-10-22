@@ -459,6 +459,8 @@ TextField {
   position: static;
   margin-top: 35px;
   object-fit: cover;
+  width: 100vw;
+  margin-left: -16px;
 }
 
 .single-news-article img {
@@ -473,6 +475,8 @@ TextField {
   justify-content: space-between;
   margin-bottom: 10px;
   margin-top: -13px;
+  margin-left: -7px;
+  margin-right: 22px;
 }
 
 .article-date {
@@ -490,6 +494,8 @@ TextField {
 hr {
   border: 1px solid #00112f;
   margin-top: -10px;
+  width: 96vw;
+  margin-left: -9px;
 }
 
 .article-title {
@@ -501,8 +507,8 @@ hr {
 .article-content {
   color: #acacac;
   font-weight: bold;
-  font-size: 1em;
   text-align: right;
+  margin-right: 26px;
 }
 
 /* Shift the content to the left when the drawer is open */
