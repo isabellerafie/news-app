@@ -502,6 +502,7 @@ hr {
   direction: rtl;
   text-align: right;
   color: black;
+  margin-bottom: -20px;
 }
 
 .article-content {
