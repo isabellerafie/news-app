@@ -90,7 +90,10 @@ function LatestNews() {
             <Card
               className="latest-item"
               onClick={() => handleClick(latestItem.id)}
-              sx={{ backgroundColor: "#FFFFFF" }}
+              sx={{
+                backgroundColor: "#FFFFFF",
+                boxShadow: "none",
+              }}
             >
               {/* Conditionally render LazyLoadImage */}
               {latestItem.image && (
@@ -98,11 +101,11 @@ function LatestNews() {
                   alt={latestItem.title}
                   effect="blur"
                   src={latestItem.image}
-                  width="120px"
+                  width="120px" // Fixed width
+                  height="105px" // Set a fixed height
                   style={{
-                    height: "105px",
-                    marginLeft: "-20px",
                     objectFit: "cover",
+                    marginLeft: "-10px", // Ensures the image covers the area without distortion
                   }}
                   onError={(e) => (e.target.src = "/images.png")}
                 />
@@ -125,7 +128,11 @@ function LatestNews() {
                 <div className="line">
                   <Typography
                     className="latest-date"
-                    sx={{ fontSize: "smaller", fontWeight: "bold" }}
+                    sx={{
+                      fontSize: "smaller",
+                      fontWeight: "bold",
+                      marginTop: "5px",
+                    }}
                   >
                     {new Date(latestItem.date).toISOString().substring(0, 10)}
                   </Typography>

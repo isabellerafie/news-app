@@ -112,7 +112,14 @@ function SpecificCategory({ activeCategory }) {
             </Grid>
 
             {/* Other news in rows of two */}
-            <Grid container spacing={1} className="othernews">
+            <Grid
+              container
+              spacing={1}
+              className="othernews"
+              sx={{
+                marginTop: "10px",
+              }}
+            >
               {articles.slice(1).map((article) => (
                 <Grid item xs={6} key={article.id}>
                   <Card
