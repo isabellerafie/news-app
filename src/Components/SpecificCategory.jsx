@@ -53,7 +53,7 @@ function SpecificCategory({ activeCategory }) {
               <Card
                 className="main-news"
                 onClick={() => handleArticleClick(articles[0].id)}
-                sx={{ marginBottom: hasImage ? "-35px" : "-15px" }} // Adjust margin based on image presence
+                sx={{ marginBottom: hasImage ? "-35px" : "-15px" }}
               >
                 <LazyLoadImage
                   alt={articles[0].title}

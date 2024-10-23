@@ -186,7 +186,7 @@ function Header({ setActiveCategory }) {
               style={{
                 transform: isSidebarVisible
                   ? "translateX(-240px)"
-                  : "translateX(0)", // Adjust the value according to sidebar width
+                  : "translateX(0)",
                 transition: "transform 0.3s ease-in-out", // Smooth transition
               }}
             >
@@ -224,9 +224,9 @@ function Header({ setActiveCategory }) {
             onKeyDown={handleKeyPress}
             sx={{
               "& .MuiOutlinedInput-root": {
-                color: "#838282", // Set font color to blue
+                color: "#838282", // border of the input field.
                 "& input": {
-                  color: "#838282", // Ensure input text color is blue
+                  color: "#838282", //  input text color
                 },
               },
             }}

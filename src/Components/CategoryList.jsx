@@ -11,7 +11,7 @@ import {
   Box,
 } from "@mui/material";
 import { LazyLoadImage } from "react-lazy-load-image-component"; // Import LazyLoadImage component
-import "react-lazy-load-image-component/src/effects/blur.css"; // Optional: adds a blur effect when loading
+import "react-lazy-load-image-component/src/effects/blur.css"; // adds a blur effect when loading
 
 function CategoryList() {
   const [categories, setCategories] = useState([]);

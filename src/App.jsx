@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CategoryList from "./Components/CategoryList";
@@ -17,7 +17,7 @@ function App() {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${isSidebarVisible ? "shift-left" : ""}`}>
       <Provider store={store}>
         <Router>
           <Header
@@ -25,29 +25,24 @@ function App() {
             isSidebarVisible={isSidebarVisible}
             setIsSidebarVisible={setIsSidebarVisible}
           />
-          {/* Wrap content in a container */}
-          <div
-            className={`content-wrapper ${isSidebarVisible ? "shifted" : ""}`}
-          >
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <NewsSliderComponent />
-                    <CategoryList />
-                  </>
-                }
-              />
-              <Route path="/latest" element={<LatestNews />} />
-              <Route
-                path="/category/:id"
-                element={<SpecificCategory activeCategory={activeCategory} />}
-              />
-              <Route path="/news-details/:id" element={<SingleNewsArticle />} />
-              <Route path="/search-results" element={<SearchResults />} />
-            </Routes>
-          </div>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <NewsSliderComponent />
+                  <CategoryList />
+                </>
+              }
+            />
+            <Route path="/latest" element={<LatestNews />} />
+            <Route
+              path="/category/:id"
+              element={<SpecificCategory activeCategory={activeCategory} />}
+            />
+            <Route path="/news-details/:id" element={<SingleNewsArticle />} />
+            <Route path="/search-results" element={<SearchResults />} />
+          </Routes>
         </Router>
       </Provider>
     </div>

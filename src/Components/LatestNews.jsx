@@ -12,7 +12,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { LazyLoadImage } from "react-lazy-load-image-component"; // Import LazyLoadImage component
-import "react-lazy-load-image-component/src/effects/blur.css"; // Optional: adds a blur effect when loading
+import "react-lazy-load-image-component/src/effects/blur.css"; // adds a blur effect when loading
 
 function LatestNews() {
   const dispatch = useDispatch();
@@ -101,11 +101,11 @@ function LatestNews() {
                   alt={latestItem.title}
                   effect="blur"
                   src={latestItem.image}
-                  width="120px" // Fixed width
-                  height="105px" // Set a fixed height
+                  width="120px"
+                  height="105px"
                   style={{
                     objectFit: "cover",
-                    marginLeft: "-10px", // Ensures the image covers the area without distortion
+                    marginLeft: "-10px",
                   }}
                   onError={(e) => (e.target.src = "/images.png")}
                 />

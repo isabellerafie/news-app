@@ -98,21 +98,21 @@ function NewsSlider() {
           },
           "& .MuiSlider-track": {
             // Styles for the track (the filled part of the slider)
-            height: 0, // Track height
-            backgroundColor: "#ffff", // Color of the track
+            height: 0,
+            backgroundColor: "#ffff",
           },
           "& .MuiSlider-rail": {
             // Styles for the rail (the unfilled part of the slider)
-            height: 10, // Rail height
-            backgroundColor: "#ffff", // Light color for the rail
+            height: 10,
+            backgroundColor: "#ffff",
           },
           "& .MuiSlider-mark": {
             // Styles for the slider marks (small dots/ticks along the track)
-            height: 0, // Mark height
+            height: 0,
           },
           "& .MuiSlider-markActive": {
             // Styles for the marks that are active/selected
-            backgroundColor: "#acacac", // Active mark color
+            backgroundColor: "#acacac",
           },
         }}
       />

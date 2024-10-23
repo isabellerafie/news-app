@@ -312,9 +312,10 @@ TextField {
 
 .latest-list {
   margin-top: 70px;
-  margin-left: -21px;
+  margin-left: -17px;
   overflow-x: hidden !important;
   background-color: #f3eeee;
+  margin-right: -12px;
 }
 
 .latest-item {
