@@ -111,6 +111,7 @@ function Header({ setActiveCategory }) {
     setActivePage("home");
     navigate("/");
     clearSearch();
+    setIsSidebarVisible(false); // Close the sidebar
   };
 
   const handleLatestClick = () => {
@@ -262,6 +263,19 @@ function Header({ setActiveCategory }) {
         >
           <div className="sidebar-content">
             <ul>
+              <li>
+                <div
+                  onClick={handleHomeClick}
+                  style={{
+                    cursor: "pointer",
+                    color: "#ffffff",
+                    marginBottom: "15px",
+                    marginRight: "50px",
+                  }}
+                >
+                  الصفحة الرئيسية
+                </div>
+              </li>
               {categories.length > 0 ? (
                 categories.map((item) => (
                   <li key={item.id}>
@@ -271,6 +285,7 @@ function Header({ setActiveCategory }) {
                         cursor: "pointer",
                         color: "#ffffff",
                         marginTop: "25px",
+                        marginRight: "50px",
                       }}
                     >
                       {item.title}

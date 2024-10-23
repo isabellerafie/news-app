@@ -154,7 +154,7 @@ function SpecificCategory({ activeCategory }) {
                         <Typography
                           className="news-item-category"
                           sx={{
-                            fontSize: "small",
+                            fontSize: "10px",
                             marginRight: "-13px",
                           }}
                         >

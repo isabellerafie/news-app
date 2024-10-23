@@ -409,17 +409,18 @@ TextField {
 
 .news-item-date {
   text-align: left;
-  font-size: small;
-  width: 100%;
+  font-size: x-small;
   margin-top: 5px;
+  width: -webkit-fill-available;
   margin-left: -10px;
 }
 
 .news-item-category {
   color: #ffffff;
   background-color: #00112f;
-  padding: 5px 15px;
+  padding: 5px 0;
   height: fit-content;
+  width: -webkit-fill-available;
 }
 
 .news-item-title {
@@ -507,14 +508,14 @@ hr {
 }
 
 /* Shift the content to the left when the drawer is open */
-.shift-left {
+.app-container.shift-left {
   transform: translateX(-50px);
 }
 
 .sidebar-content {
   width: 240px;
   direction: rtl;
-  text-align: center;
+  text-align: right;
   font-size: large;
   height: calc(100vh - 60px); /* Adjust height based on the AppBar height */
   overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
@@ -535,22 +536,14 @@ hr {
   text-decoration: underline;
 }
 
-.app-container {
-  transition: margin-right 0.3s ease;
+.content-wrapper {
+  transition: transform 0.3s ease-in-out;
 }
 
-.app-container.shift-left {
-  margin-right: 240px;
-}
-
-.header__container,
-.button-container {
-  transition: margin-right 0.3s ease;
-}
-
-.header__container.shift-left,
-.button-container.shift-left {
-  margin-right: 240px;
+.content-wrapper.shifted {
+  transform: translateX(
+    -240px
+  ); /* Adjust this value based on your sidebar width */
 }
 
 .load-more-wrapper {
