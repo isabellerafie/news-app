@@ -26,6 +26,8 @@ function SingleNewsArticle() {
       })
       .catch((error) => {
         console.error("Error fetching article details:", error);
+        // Redirect to offline page if network error occurs
+        window.location.href = "/offline.html";
       })
       .finally(() => {
         setIsLoading(false); // Set loading to false after fetch
