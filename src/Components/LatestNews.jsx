@@ -52,7 +52,7 @@ function LatestNews() {
         dispatch(setError(err.message));
         dispatch(setStatus("failed"));
       });
-  }, [dispatch, pageNum, latestNews, hasMore]);
+  }, [dispatch, pageNum, hasMore]);
 
   const handleClick = (id) => {
     navigate(`/news-details/${id}`);
@@ -85,71 +85,79 @@ function LatestNews() {
   return (
     <div className="latest-list">
       <Grid2 container spacing={0}>
-        {latestNews.map((latestItem, index) => (
-          <Grid2 item xs={12} sm={6} md={4} key={`${latestItem.id}-${index}`}>
-            <Card
-              className="latest-item"
-              onClick={() => handleClick(latestItem.id)}
-              sx={{
-                backgroundColor: "#FFFFFF",
-                boxShadow: "none",
-              }}
-            >
-              {/* Conditionally render LazyLoadImage */}
-              {latestItem.image && (
-                <LazyLoadImage
-                  alt={latestItem.title}
-                  effect="blur"
-                  src={latestItem.image}
-                  width="120px"
-                  height="105px"
-                  style={{
-                    objectFit: "cover",
-                    marginLeft: "-10px",
-                  }}
-                  onError={(e) => (e.target.src = "/images.png")}
-                />
-              )}
-              <CardContent className="latest-details">
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontSize: "0.9rem",
-                    fontWeight: "900",
-                    display: "-webkit-box",
-                    overflow: "hidden",
-                    WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 2,
-                  }}
-                  className="latest-title"
-                >
-                  {latestItem.title}
-                </Typography>
-                <div className="line">
-                  <Typography
-                    className="latest-date"
-                    sx={{
-                      fontSize: "smaller",
-                      fontWeight: "bold",
-                      marginTop: "5px",
+        {latestNews.map((latestItem, index) => {
+          const hasImage = latestItem.image;
+          const isSingleLineTitle = latestItem.title.split(" ").length <= 10; // Adjust this condition based on your line count logic
+
+          return (
+            <Grid2 item xs={12} sm={6} md={4} key={`${latestItem.id}-${index}`}>
+              <Card
+                className="latest-item"
+                onClick={() => handleClick(latestItem.id)}
+                sx={{
+                  backgroundColor: "#FFFFFF",
+                  boxShadow: "none",
+                }}
+              >
+                {/* Conditionally render LazyLoadImage */}
+                {hasImage && (
+                  <LazyLoadImage
+                    alt={latestItem.title}
+                    effect="blur"
+                    src={latestItem.image}
+                    width="120px"
+                    height="105px"
+                    style={{
+                      objectFit: "cover",
+                      marginLeft: "-10px",
                     }}
-                  >
-                    {new Date(latestItem.date).toISOString().substring(0, 10)}
-                  </Typography>
+                    onError={(e) => (e.target.src = "/images.png")}
+                  />
+                )}
+                <CardContent className="latest-details">
                   <Typography
-                    variant="subtitle2"
-                    className="latest-category"
+                    variant="h6"
                     sx={{
-                      fontSize: "10px",
+                      fontSize: "0.9rem",
+                      fontWeight: "900",
+                      display: "-webkit-box",
+                      overflow: "hidden",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 2,
                     }}
+                    className="latest-title"
                   >
-                    {latestItem.category.title}
+                    {latestItem.title}
                   </Typography>
-                </div>
-              </CardContent>
-            </Card>
-          </Grid2>
-        ))}
+                  <div className="line">
+                    <Typography
+                      className="latest-date"
+                      sx={{
+                        fontSize: "smaller",
+                        fontWeight: "bold",
+                        marginTop: "5px",
+                        marginLeft:
+                          hasImage || !isSingleLineTitle ? "0px" : "120px", // Adjust margin based on conditions
+                      }}
+                    >
+                      {new Date(latestItem.date).toISOString().substring(0, 10)}
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      className="latest-category"
+                      sx={{
+                        fontSize: "10px",
+                        marginLeft: "85px",
+                      }}
+                    >
+                      {latestItem.category.title}
+                    </Typography>
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid2>
+          );
+        })}
       </Grid2>
 
       {hasMore && (
